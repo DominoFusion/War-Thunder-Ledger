@@ -204,7 +204,7 @@
     border-radius: 999px; background: var(--blue); font-size: .75rem;
   }
   /* Keep the page exactly one phone-width wide; wide tables scroll inside their own box */
-  html, body { max-width: 100%; overflow-x: hidden; }
+  html, body { max-width: 100%; }
   header { width: 100%; box-sizing: border-box; }
   .shell, .layout, .content, .shell-main, #ledgerView, #gecView, #patchView { max-width: 100%; min-width: 0; box-sizing: border-box; }
   main { max-width: 100%; }
@@ -224,6 +224,13 @@
     .gec-big { font-size: 1.2rem; }
     .gec-wrap, .patch-wrap { padding: 10px; }
     .gec-card { padding: 10px 12px; }
+  }
+  /* Let the page scroll vertically on phones; keep wide items inside their own boxes */
+  .toolbar { flex-wrap: wrap; }
+  .search { min-width: 0; width: 100%; }
+  .gec-card { overflow-x: auto; }
+  @media (max-width: 700px) {
+    .sidebar, .rail { overflow: visible; }
   }
 </style>
 </head>
