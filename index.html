@@ -203,6 +203,28 @@
     display: inline-block; margin-left: 8px; padding: 2px 8px;
     border-radius: 999px; background: var(--blue); font-size: .75rem;
   }
+  /* Keep the page exactly one phone-width wide; wide tables scroll inside their own box */
+  html, body { max-width: 100%; overflow-x: hidden; }
+  header { width: 100%; box-sizing: border-box; }
+  .shell, .layout, .content, .shell-main, #ledgerView, #gecView, #patchView { max-width: 100%; min-width: 0; box-sizing: border-box; }
+  main { max-width: 100%; }
+  /* Responsive sizing: text grows gently with the screen, and the layout adapts to the device */
+  html { font-size: clamp(14px, 0.5vw + 12px, 18px); }
+  .content { max-width: 1600px; }
+  @media (min-width: 1100px) {
+    th, td { padding: 10px 12px; }
+    .sidebar { width: 210px; }
+    .rail { width: 150px; }
+    .toolbar, .meta, .filters, main { padding-left: 24px; padding-right: 24px; }
+  }
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.5rem; }
+    table { min-width: 640px; }
+    th, td { padding: 6px 5px; font-size: .85rem; }
+    .gec-big { font-size: 1.2rem; }
+    .gec-wrap, .patch-wrap { padding: 10px; }
+    .gec-card { padding: 10px 12px; }
+  }
 </style>
 </head>
 <body>
