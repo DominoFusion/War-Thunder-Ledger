@@ -24,7 +24,7 @@
     color: var(--text);
   }
   header {
-    background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+    background: linear-gradient(90deg, var(--grad1), var(--grad2), var(--grad3));
     padding: 24px 16px;
     text-align: center;
   }
@@ -55,7 +55,7 @@
   }
   th:hover { background: var(--purple); }
   tbody tr:nth-child(even) { background: var(--row-alt); }
-  tbody tr:hover { background: #2c2440; }
+  tbody tr:hover { background: var(--hover); }
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
   .tbd { color: var(--muted); font-style: italic; }
   .badge {
@@ -71,7 +71,7 @@
   .divider { cursor: pointer; }
   .divider td {
     user-select: none;
-    background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+    background: linear-gradient(90deg, var(--grad1), var(--grad2), var(--grad3));
     color: #fff;
     font-weight: 700;
     letter-spacing: .08em;
@@ -104,7 +104,7 @@
     cursor: pointer;
     font-size: 1rem;
   }
-  .tabs button:hover { background: #2c2440; }
+  .tabs button:hover { background: var(--hover); }
   .tabs button.active {
     background: var(--pink);
     border-left-color: var(--purple);
@@ -130,14 +130,14 @@
   .gec-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
   .gec-card h3 { margin: 0 0 6px; color: var(--pink); }
   .gec-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 8px; }
-  .gec-input { background: #15121c; color: var(--text); border: 2px solid var(--purple); border-radius: 6px; padding: 6px 10px; font-size: 1rem; }
+  .gec-input { background: var(--input-bg); color: var(--text); border: 2px solid var(--purple); border-radius: 6px; padding: 6px 10px; font-size: 1rem; }
   .gec-conv { color: var(--muted); }
   .gec-note { color: var(--muted); font-size: .85rem; margin: 2px 0 8px; }
   .gec-table { width: 100%; border-collapse: collapse; }
   .gec-table th, .gec-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); text-align: left; }
   .gec-table th { background: var(--blue); }
   .gec-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .gec-table tr.hl td { background: #2c2440; }
+  .gec-table tr.hl td { background: var(--hover); }
   .gec-big { font-size: 1.4rem; font-weight: 700; }
   .gec-muted { color: var(--muted); }
   .shell { display: flex; align-items: flex-start; }
@@ -166,7 +166,7 @@
     cursor: pointer;
     font-size: 1rem;
   }
-  .rail-btn:hover { background: #2c2440; }
+  .rail-btn:hover { background: var(--hover); }
   .rail-btn.active { background: var(--pink); border-left-color: var(--purple); font-weight: 700; }
   .shell-main { flex: 1; min-width: 0; }
   @media (max-width: 700px) {
@@ -180,7 +180,7 @@
   .search { flex: 1; max-width: 420px; }
   .meta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 8px 16px 0; color: var(--muted); font-size: .9rem; }
   td.editable { cursor: text; }
-  td.editable:focus { background: #2c2440; outline: 1px solid var(--pink); }
+  td.editable:focus { background: var(--hover); outline: 1px solid var(--pink); }
   .patch-wrap { max-width: 760px; margin: 0 auto; padding: 16px; }
   .patch-list {
     max-height: 70vh; overflow-y: auto; position: relative;
@@ -219,8 +219,12 @@
   }
   @media (max-width: 480px) {
     header h1 { font-size: 1.5rem; }
-    table { min-width: 640px; }
-    th, td { padding: 6px 5px; font-size: .85rem; }
+    table { width: 100%; min-width: 0; }
+    th, td { white-space: nowrap; }
+    th:nth-child(2), td:nth-child(2) { width: 100%; white-space: normal; }
+    th:not(:nth-child(2)), td:not(:nth-child(2)) { width: 1%; }
+    th, td { padding: 5px 3px; font-size: .78rem; }
+    .badge { font-size: .68rem; padding: 1px 6px; }
     .gec-big { font-size: 1.2rem; }
     .gec-wrap, .patch-wrap { padding: 10px; }
     .gec-card { padding: 10px 12px; }
@@ -232,6 +236,70 @@
   @media (max-width: 700px) {
     .sidebar, .rail { overflow: visible; }
   }
+  .fav-cell { cursor: pointer; font-size: 1.1rem; color: var(--pink); text-align: center; user-select: none; }
+  .fav-toggle { display: inline-flex; align-items: center; gap: 6px; color: var(--text); }
+  .divider td { width: auto !important; }
+  .trend-wrap { max-width: 1000px; margin: 0 auto; padding: 16px; }
+  .trend-chart {
+    position: relative; display: flex; gap: 6px; overflow-x: auto;
+    height: 330px; padding: 6px 4px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .trend-col { position: relative; min-width: 72px; height: 100%; flex-shrink: 0; }
+  .trend-base { position: absolute; left: 0; right: 0; top: 50%; border-top: 1px dashed var(--border); }
+  .trend-bar {
+    position: absolute; left: 6px; right: 6px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem;
+  }
+  .trend-bar.down { background: #1f9d55; color: #fff; bottom: 50%; margin-bottom: 2px; }
+  .trend-bar.up { background: #e02424; color: #000; top: 50%; margin-top: 2px; }
+  .trend-bar.flat { background: #2f6fd6; color: #fff; top: calc(50% - 14px); height: 28px; }
+  .trend-label { position: absolute; left: 0; right: 0; bottom: -2px; text-align: center; font-size: .72rem; color: var(--muted); line-height: 1.1; transform: translateY(100%); }
+  .trend-key-row { margin: 6px 0; }
+  .swatch { display: inline-block; width: 26px; text-align: center; font-weight: 700; border-radius: 4px; padding: 0 4px; }
+  .swatch.down { background: #1f9d55; color: #fff; }
+  .swatch.up { background: #e02424; color: #000; }
+  .swatch.flat { background: #2f6fd6; color: #fff; }
+  .sheet-br { font-style: italic; text-decoration: underline dotted; }
+  header h1 { color: var(--header-text); }
+  .divider td { color: var(--header-text); }
+  th { color: var(--header-text); }
+  .tabs button.active, .rail-btn.active, .filters button.active, .view-btn.active,
+  .badge, .patch-tag { color: var(--on-accent); }
+  .theme-select { width: 100%; margin-top: 4px; font-size: .9rem; }
+  .ladder-wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  .ladder-row { display: flex; gap: 12px; align-items: stretch; margin-bottom: 12px; }
+  .ladder-rank {
+    flex: 0 0 90px; font-weight: 700; color: var(--pink);
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 6px; border-right: 3px solid var(--purple);
+  }
+  .ladder-items { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; min-width: 0; padding: 4px 0; }
+  .ladder-chip {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 6px 10px; min-width: 120px; max-width: 100%;
+  }
+  .ladder-chip .name { font-weight: 600; }
+  .ladder-chip .br { color: var(--muted); font-size: .85rem; }
+  .ladder-chip.tbd .br { font-style: italic; }
+  .class-icon { display: inline-block; width: 18px; height: 18px; vertical-align: -4px; margin-right: 6px; color: var(--pink); }
+  .class-icon svg { width: 100%; height: 100%; }
+  .ladder-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0 8px; }
+  .legend-group { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
+  .legend-title { font-weight: 700; color: var(--pink); margin-bottom: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: .9rem; margin: 3px 0; }
+  .legend-icon { display: inline-block; width: 20px; height: 20px; color: var(--pink); }
+  .legend-icon svg { width: 100%; height: 100%; }
+  .legend-item { cursor: pointer; padding: 3px 6px; border-radius: 6px; }
+  .legend-item:hover { background: var(--hover); }
+  .legend-item.active { background: var(--pink); color: var(--on-accent); }
+  .legend-item.active .legend-icon { color: var(--on-accent); }
+  .legend-top { display: flex; gap: 10px; align-items: center; width: 100%; }
+  #ladLegend { display: none; }  /* class filters hidden until vehicle classes exist */
+  .note-text { font-style: italic; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+  .cmp-table td:first-child { color: var(--muted); }
+  .cmp-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; margin: 3px; }
+  .cmp-chip button { background: none; border: none; color: var(--text); cursor: pointer; font-size: 1rem; }
+  #randomResult:empty { display: none; }
 </style>
 </head>
 <body>
@@ -244,8 +312,15 @@
   <nav class="rail">
     <div class="label">Views</div>
     <button id="viewLedger" class="rail-btn active">Ledger</button>
+    <button id="viewFav" class="rail-btn">Favorites</button>
     <button id="viewGEC" class="rail-btn">G.E.C.</button>
     <button id="viewPatches" class="rail-btn">Patches</button>
+    <button id="viewTrend" class="rail-btn">BR Trend</button>
+    <button id="viewLadder" class="rail-btn">Tech Tree</button>
+    <button id="viewCompare" class="rail-btn">Compare</button>
+    <button id="viewBracket" class="rail-btn">BR Bracket</button>
+    <div class="label" style="margin-top:14px">Theme</div>
+    <select id="themeSelect" class="gec-input theme-select"></select>
   </nav>
   <div class="shell-main">
 <div id="ledgerView">
@@ -258,6 +333,9 @@
   <section class="content">
     <div class="toolbar">
       <input id="searchBox" type="search" placeholder="Search vehicles by name..." class="gec-input search">
+      <label class="fav-toggle"><input type="checkbox" id="favOnlyToggle"> Favorites only</label>
+      <select id="changedPatch" class="gec-input"><option value="">Any patch</option></select>
+      <button id="randomBtn" class="view-btn">Random pick</button>
       <button id="exportCsv" class="view-btn">Export CSV</button>
     </div>
     <div class="meta">
@@ -266,6 +344,7 @@
       <span id="savedNote" class="gec-muted"></span>
     </div>
 
+    <div id="randomResult" class="meta"></div>
     <div class="filters">
       <div class="label">Tech tree</div>
       <div id="treeFilters"></div>
@@ -338,6 +417,69 @@
         <tbody id="gecPacks"></tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<section id="trendView" hidden>
+  <div class="trend-wrap">
+    <h2 class="gec-title">BR Trend</h2>
+    <p class="gec-sub">Search a vehicle to see how its BR changed each patch.</p>
+    <input id="trendSearch" list="trendList" type="search" class="gec-input search" placeholder="Search a vehicle...">
+    <datalist id="trendList"></datalist>
+    <label class="fav-toggle">Mode <select id="trendMode" class="gec-input"></select></label>
+    <div id="trendInfo" class="gec-card"></div>
+    <div id="trendChart" class="trend-chart"></div>
+    <div class="trend-key gec-card">
+      <div class="trend-key-row"><span class="swatch down">▲</span> <b>Green, arrow up:</b> BR went down (better for you)</div>
+      <div class="trend-key-row"><span class="swatch up">▼</span> <b>Red, arrow down:</b> BR went up (worse for you)</div>
+      <div class="trend-key-row"><span class="swatch flat">■</span> <b>Blue, square:</b> BR did not change</div>
+      <p class="gec-note">The number in each bar is the BR after that change. Shapes and arrows show the change too, so colors aren't the only clue.</p>
+    </div>
+  </div>
+</section>
+
+<section id="ladderView" hidden>
+  <div class="ladder-wrap">
+    <h2 class="gec-title">Tech Tree Ladder</h2>
+    <p class="gec-sub">Ranks run top to bottom, in the order the wiki lists them. Each row is one rank.</p>
+    <div class="gec-row">
+      <label>Nation <select id="ladNation" class="gec-input"></select></label>
+      <label>Tree <select id="ladTree" class="gec-input"></select></label>
+      <label>Type <select id="ladType" class="gec-input"></select></label>
+    </div>
+    <div id="ladLegend" class="ladder-legend"></div>
+    <div id="ladderBody"></div>
+  </div>
+</section>
+
+<section id="compareView" hidden>
+  <div class="ladder-wrap">
+    <h2 class="gec-title">Compare</h2>
+    <p class="gec-sub">Search and add up to 4 vehicles to compare them side by side.</p>
+    <div class="toolbar" style="padding:0">
+      <input id="compareSearch" list="compareList" type="search" class="gec-input search" placeholder="Add a vehicle...">
+      <datalist id="compareList"></datalist>
+      <button id="compareAddBtn" class="view-btn">Add</button>
+    </div>
+    <div id="compareChips" class="meta" style="padding:10px 0"></div>
+    <div id="compareBody"></div>
+  </div>
+</section>
+
+<section id="bracketView" hidden>
+  <div class="ladder-wrap">
+    <h2 class="gec-title">BR Bracket</h2>
+    <p class="gec-sub">Every vehicle in a BR range. Useful for knowing what you'll face.</p>
+    <div class="gec-row">
+      <label>Min BR <input id="brMin" type="number" step="0.1" value="10.0" class="gec-input" style="width:100px"></label>
+      <label>Max BR <input id="brMax" type="number" step="0.1" value="10.7" class="gec-input" style="width:100px"></label>
+    </div>
+    <div class="gec-row">
+      <label>Nation <select id="brNation" class="gec-input"></select></label>
+      <label>Type <select id="brType" class="gec-input"></select></label>
+      <label>Tree <select id="brTree" class="gec-input"></select></label>
+    </div>
+    <div id="bracketBody"></div>
   </div>
 </section>
 
@@ -4032,6 +4174,7 @@
   ];
 
   const COLUMNS = [
+    { key: "fav", label: "★", fav: true },
     { key: "name", label: "Vehicle" },
     { key: "type", label: "Type" },
     { key: "rank", label: "Rank", editable: true },
@@ -4048,6 +4191,19 @@
   let sortAsc = true;
   let searchText = "";
   const collapsed = new Set();
+
+  // ----- Favorites, stored in this browser only -----
+  const FAV_KEY = "wt-ledger-favs-v1";
+  let favOnly = false;
+  let favSet = new Set();
+  try { favSet = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); } catch (e) { favSet = new Set(); }
+
+  function toggleFav(item) {
+    if (favSet.has(item._key)) favSet.delete(item._key);
+    else favSet.add(item._key);
+    localStorage.setItem(FAV_KEY, JSON.stringify([...favSet]));
+    refresh();
+  }
 
   // ----- Saved edits (BR and Rank only), stored in this browser -----
   const OVR_KEY = "wt-ledger-edits-v1";
@@ -4103,7 +4259,7 @@
     COLUMNS.forEach(col => {
       const th = document.createElement("th");
       th.textContent = col.label + (sortKey === col.key ? (sortAsc ? " ▲" : " ▼") : "");
-      th.onclick = () => {
+      if (!col.fav) th.onclick = () => {
         if (sortKey === col.key) sortAsc = !sortAsc;
         else { sortKey = col.key; sortAsc = true; }
         refresh();
@@ -4136,6 +4292,13 @@
     COLUMNS.forEach(col => {
       const val = item[col.key];
       const td = document.createElement("td");
+      if (col.fav) {
+        td.className = "fav-cell";
+        td.textContent = favSet.has(item._key) ? "★" : "☆";
+        td.onclick = () => toggleFav(item);
+        tr.appendChild(td);
+        return;
+      }
       if (col.key === "tree" && val !== "TBD") {
         const span = document.createElement("span");
         span.className = "badge " + val;
@@ -4146,6 +4309,33 @@
         if (val === "TBD") td.classList.add("tbd");
       }
       if (col.num) td.classList.add("num");
+      if (col.key === "name") {
+        const cls = CLASS_MAP[item.nation + "|" + item.name];
+        if (cls && CLASS_ICONS[cls]) {
+          td.textContent = "";
+          const ic = document.createElement("span");
+          ic.className = "class-icon";
+          ic.innerHTML = CLASS_ICONS[cls];
+          ic.title = CLASS_LABELS[cls];
+          td.appendChild(ic);
+          td.appendChild(document.createTextNode(formatValue(val)));
+        }
+      }
+      if (col.key === "name") {
+        td.style.cursor = "pointer";
+        td.title = "Tap to add or edit a note";
+        td.onclick = () => editNote(item);
+        if (notes[item._key]) {
+          const n = document.createElement("div");
+          n.className = "note-text";
+          n.textContent = notes[item._key];
+          td.appendChild(n);
+        }
+      }
+      if (col.key === "br" && item._brSource) {
+        td.classList.add("sheet-br");
+        td.title = "BR from the " + item._brSource + " BR sheet, not from the wiki";
+      }
       if (col.editable) {
         td.classList.add("editable");
         td.contentEditable = "true";
@@ -4163,8 +4353,11 @@
     let rows = DATA.filter(item =>
       (typeFilter === "All" || item.type === typeFilter) &&
       (treeFilter === "All" || item.tree === treeFilter) &&
-      (!q || item.name.toLowerCase().includes(q))
+      (!q || item.name.toLowerCase().includes(q)) &&
+      (!favOnly || favSet.has(item._key))
     );
+    const changed = document.getElementById("changedPatch") ? document.getElementById("changedPatch").value : "";
+    if (changed) rows = rows.filter(d => hasChangeIn(d, changed));
     if (sortKey) {
       rows.sort((a, b) => {
         const av = sortValue(a, sortKey);
@@ -4178,6 +4371,7 @@
   }
 
   function refresh() {
+    updateHash();
     document.querySelectorAll("#typeFilters button").forEach(b => b.classList.toggle("active", b.dataset.label === typeFilter));
     document.querySelectorAll("#treeFilters button").forEach(b => b.classList.toggle("active", b.dataset.label === treeFilter));
     buildHeader();
@@ -4190,7 +4384,7 @@
       const tr = document.createElement("tr");
       const td = document.createElement("td");
       td.colSpan = COLUMNS.length;
-      td.textContent = "No vehicles match these filters yet.";
+      td.textContent = favOnly ? "No favorites yet. Tap the ☆ next to a vehicle to add it." : "No vehicles match these filters yet.";
       td.className = "tbd";
       tr.appendChild(td);
       body.appendChild(tr);
@@ -4233,11 +4427,11 @@
 
   function exportCsv() {
     const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
-    const header = ["Vehicle", "Nation", "Type", "Rank", "Tree", "BR"];
+    const header = ["Vehicle", "Nation", "Type", "Rank", "Tree", "BR", "Note"];
     const lines = [header.map(esc).join(",")];
     visibleRows().forEach(r => {
       const br = typeof r.br === "number" ? r.br.toFixed(1) : r.br;
-      lines.push([r.name, r.nation, r.type, r.rank, r.tree, br].map(esc).join(","));
+      lines.push([r.name, r.nation, r.type, r.rank, r.tree, br, notes[r._key] || ""].map(esc).join(","));
     });
     // BOM so Excel and Google Sheets read the characters correctly
     const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
@@ -4256,11 +4450,18 @@
     const patch = document.getElementById("patchInput");
     patch.value = localStorage.getItem(PATCH_KEY) || "";
     patch.oninput = () => { localStorage.setItem(PATCH_KEY, patch.value); flashSaved(); };
+    const favToggle = document.getElementById("favOnlyToggle");
+    favToggle.onchange = () => { favOnly = favToggle.checked; refresh(); };
+    document.getElementById("viewFav").onclick = () => {
+      document.getElementById("viewLedger").click();   // shows the ledger view
+      favOnly = true;
+      favToggle.checked = true;
+      refresh();
+    };
   }
 
   buildFilters();
   setupToolbar();
-  refresh();
 
 
   // ================= Patch timeline =================
@@ -4356,6 +4557,345 @@
       list.appendChild(item);
     });
   }
+
+  // ================= Themes =================
+  const THEMES = {
+  "bisexual": {
+    "label": "Pride",
+    "scheme": "dark",
+    "vars": {
+      "--bg": "#15121c",
+      "--card": "#211c2b",
+      "--row-alt": "#1b1726",
+      "--border": "#3a3150",
+      "--text": "#f3eefa",
+      "--muted": "#c9b8e0",
+      "--pink": "#D60270",
+      "--purple": "#9B4F96",
+      "--blue": "#0038A8",
+      "--hover": "#2c2440",
+      "--input-bg": "#15121c",
+      "--on-accent": "#ffffff",
+      "--grad1": "#D60270",
+      "--grad2": "#9B4F96",
+      "--grad3": "#0038A8",
+      "--header-text": "#ffffff"
+    }
+  },
+  "greyDark": {
+    "label": "Graphite",
+    "scheme": "dark",
+    "vars": {
+      "--bg": "#161616",
+      "--card": "#222222",
+      "--row-alt": "#1c1c1c",
+      "--border": "#3d3d3d",
+      "--text": "#d4d4d4",
+      "--muted": "#9c9c9c",
+      "--pink": "#8a8a8a",
+      "--purple": "#6a6a6a",
+      "--blue": "#4a4a4a",
+      "--hover": "#2e2e2e",
+      "--input-bg": "#111111",
+      "--on-accent": "#111111",
+      "--grad1": "#8a8a8a",
+      "--grad2": "#6a6a6a",
+      "--grad3": "#4a4a4a",
+      "--header-text": "#ffffff"
+    }
+  },
+  "purpleBlue": {
+    "label": "Royal Night",
+    "scheme": "dark",
+    "vars": {
+      "--bg": "#0d1f57",
+      "--card": "#15307a",
+      "--row-alt": "#112a6b",
+      "--border": "#4a68c4",
+      "--text": "#d9c8ff",
+      "--muted": "#b49cf5",
+      "--pink": "#8b4dff",
+      "--purple": "#6a2fd6",
+      "--blue": "#1c3f9e",
+      "--hover": "#1f3d8c",
+      "--input-bg": "#0a1842",
+      "--on-accent": "#ffffff",
+      "--grad1": "#8b4dff",
+      "--grad2": "#6a2fd6",
+      "--grad3": "#1c3f9e",
+      "--header-text": "#ffffff"
+    }
+  },
+  "whiteBlack": {
+    "label": "Blackout",
+    "scheme": "dark",
+    "vars": {
+      "--bg": "#000000",
+      "--card": "#111111",
+      "--row-alt": "#0a0a0a",
+      "--border": "#3a3a3a",
+      "--text": "#ffffff",
+      "--muted": "#bdbdbd",
+      "--pink": "#ffffff",
+      "--purple": "#cfcfcf",
+      "--blue": "#5a5a5a",
+      "--hover": "#222222",
+      "--input-bg": "#000000",
+      "--on-accent": "#000000",
+      "--grad1": "#000000",
+      "--grad2": "#222222",
+      "--grad3": "#000000",
+      "--header-text": "#ffffff"
+    }
+  },
+  "blackWhite": {
+    "label": "Paper",
+    "scheme": "light",
+    "vars": {
+      "--bg": "#ffffff",
+      "--card": "#f4f4f4",
+      "--row-alt": "#ececec",
+      "--border": "#bdbdbd",
+      "--text": "#000000",
+      "--muted": "#3d3d3d",
+      "--pink": "#000000",
+      "--purple": "#3a3a3a",
+      "--blue": "#6b6b6b",
+      "--hover": "#dedede",
+      "--input-bg": "#ffffff",
+      "--on-accent": "#ffffff",
+      "--grad1": "#000000",
+      "--grad2": "#333333",
+      "--grad3": "#666666",
+      "--header-text": "#ffffff"
+    }
+  },
+  "dark": {
+    "label": "Night Shift",
+    "scheme": "dark",
+    "vars": {
+      "--bg": "#0f1115",
+      "--card": "#181b22",
+      "--row-alt": "#13161c",
+      "--border": "#2b3038",
+      "--text": "#e6e6e6",
+      "--muted": "#9aa3ad",
+      "--pink": "#3b82f6",
+      "--purple": "#6366f1",
+      "--blue": "#1e3a8a",
+      "--hover": "#232833",
+      "--input-bg": "#0f1115",
+      "--on-accent": "#ffffff",
+      "--grad1": "#3b82f6",
+      "--grad2": "#6366f1",
+      "--grad3": "#1e3a8a",
+      "--header-text": "#ffffff"
+    }
+  },
+  "light": {
+    "label": "Daylight",
+    "scheme": "light",
+    "vars": {
+      "--bg": "#f5f6f8",
+      "--card": "#ffffff",
+      "--row-alt": "#f0f2f5",
+      "--border": "#d5dae1",
+      "--text": "#1a1d23",
+      "--muted": "#4b5563",
+      "--pink": "#2563eb",
+      "--purple": "#7c3aed",
+      "--blue": "#1e40af",
+      "--hover": "#e5e9f0",
+      "--input-bg": "#ffffff",
+      "--on-accent": "#ffffff",
+      "--grad1": "#2563eb",
+      "--grad2": "#7c3aed",
+      "--grad3": "#1e40af",
+      "--header-text": "#ffffff"
+    }
+  }
+};
+
+  const THEME_KEY = "wt-ledger-theme-v1";
+  function applyTheme(key) {
+    const t = THEMES[key] || THEMES.bisexual;
+    const root = document.documentElement;
+    Object.entries(t.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+    root.style.colorScheme = t.scheme;
+    localStorage.setItem(THEME_KEY, THEMES[key] ? key : "bisexual");
+  }
+  function setupTheme() {
+    const sel = document.getElementById("themeSelect");
+    Object.entries(THEMES).forEach(([k, t]) => {
+      const o = document.createElement("option");
+      o.value = k; o.textContent = t.label;
+      sel.appendChild(o);
+    });
+    const saved = localStorage.getItem(THEME_KEY) || "bisexual";
+    sel.value = THEMES[saved] ? saved : "bisexual";
+    applyTheme(sel.value);
+    sel.onchange = () => applyTheme(sel.value);
+  }
+  setupTheme();
+
+
+
+  // ================= Vehicle class icons =================
+  // Replace any of these with your own SVG markup. Keep viewBox 0 0 24 24 and use fill.
+  const CLASS_ICONS = {
+  "light": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"2\" y=\"15\" width=\"20\" height=\"5\" rx=\"1.5\"/><rect x=\"7\" y=\"10\" width=\"8\" height=\"5\" rx=\"1\"/><rect x=\"14\" y=\"11\" width=\"8\" height=\"1.6\"/></svg>",
+  "medium": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"1\" y=\"15\" width=\"22\" height=\"5\" rx=\"1.5\"/><rect x=\"6\" y=\"9\" width=\"11\" height=\"6\" rx=\"1.5\"/><rect x=\"16\" y=\"11\" width=\"8\" height=\"1.8\"/></svg>",
+  "heavy": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"0\" y=\"14\" width=\"24\" height=\"7\" rx=\"1.5\"/><rect x=\"5\" y=\"7\" width=\"13\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"9\" width=\"7\" height=\"2\"/></svg>",
+  "antitank": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"1\" y=\"16\" width=\"22\" height=\"4\" rx=\"1.5\"/><path d=\"M4 16 L6 10 H16 L18 16 Z\"/><rect x=\"16\" y=\"12\" width=\"8\" height=\"1.8\"/></svg>",
+  "spaa": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"2\" y=\"16\" width=\"20\" height=\"4\" rx=\"1.5\"/><rect x=\"7\" y=\"11\" width=\"10\" height=\"5\" rx=\"1\"/><path d=\"M8 11 L5 2 L7.5 1.5 L10.5 10 Z\"/><path d=\"M13 11 L10 2 L12.5 1.5 L15.5 10 Z\"/></svg>",
+  "fighter": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"11\" y=\"2\" width=\"2\" height=\"20\" rx=\"1\"/><rect x=\"2\" y=\"9\" width=\"20\" height=\"2.5\" rx=\"1\"/><rect x=\"7\" y=\"18\" width=\"10\" height=\"2\" rx=\"1\"/></svg>",
+  "bomber": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"10\" y=\"2\" width=\"4\" height=\"20\" rx=\"2\"/><rect x=\"1\" y=\"8\" width=\"22\" height=\"3\" rx=\"1.5\"/><rect x=\"7\" y=\"18\" width=\"10\" height=\"2.5\" rx=\"1\"/><circle cx=\"7\" cy=\"12\" r=\"1.6\"/><circle cx=\"17\" cy=\"12\" r=\"1.6\"/></svg>",
+  "navalFighter": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"11\" y=\"2\" width=\"2\" height=\"16\" rx=\"1\"/><rect x=\"2\" y=\"8\" width=\"20\" height=\"2.5\" rx=\"1\"/><rect x=\"7\" y=\"15\" width=\"10\" height=\"2\" rx=\"1\"/><rect x=\"2\" y=\"21\" width=\"20\" height=\"2\" rx=\"1\"/></svg>",
+  "navalBomber": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"10\" y=\"2\" width=\"4\" height=\"16\" rx=\"2\"/><rect x=\"1\" y=\"7\" width=\"22\" height=\"3\" rx=\"1.5\"/><rect x=\"7\" y=\"15\" width=\"10\" height=\"2.5\" rx=\"1\"/><rect x=\"2\" y=\"21\" width=\"20\" height=\"2\" rx=\"1\"/></svg>",
+  "strike": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M11 2 H13 V14 L22 20 V22 L13 19 V22 L16 24 H8 L11 22 V19 L2 22 V20 L11 14 Z\"/></svg>",
+  "fighterJet": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M11 2 H13 L14 10 L22 15 V17 L14 15 L13 21 L17 23 H7 L11 21 L10 15 L2 17 V15 L10 10 Z\"/></svg>",
+  "attackHeli": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"1\" y=\"5\" width=\"22\" height=\"1.6\" rx=\"0.8\"/><ellipse cx=\"12\" cy=\"13\" rx=\"6\" ry=\"4\"/><rect x=\"2\" y=\"17\" width=\"20\" height=\"1.6\" rx=\"0.8\"/><rect x=\"11\" y=\"3\" width=\"2\" height=\"3\"/></svg>",
+  "utilityHeli": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"1\" y=\"4\" width=\"22\" height=\"1.6\" rx=\"0.8\"/><rect x=\"11\" y=\"2.5\" width=\"2\" height=\"3\"/><ellipse cx=\"11\" cy=\"13\" rx=\"7\" ry=\"5\"/><rect x=\"16\" y=\"11\" width=\"8\" height=\"2.5\" rx=\"1\"/></svg>"
+};
+  const GROUPS = [["Tanks", ["light", "medium", "heavy", "antitank", "spaa"]], ["Air", ["fighter", "bomber", "navalFighter", "navalBomber", "strike", "fighterJet", "attackHeli", "utilityHeli"]]];
+  const CLASS_LABELS = {"light": "Light Tank", "medium": "Medium Tank / MBT", "heavy": "Heavy Tank", "antitank": "Anti-Tank", "spaa": "SPAA", "fighter": "Fighter", "bomber": "Bomber", "navalFighter": "Naval Fighter", "navalBomber": "Naval Bomber", "strike": "Strike Jet", "fighterJet": "Fighter Jet", "attackHeli": "Attack Helicopter", "utilityHeli": "Utility Helicopter"};
+  // Vehicle class per vehicle, keyed by "Nation|Vehicle name". Empty until classes are assigned.
+  const CLASS_MAP = {};
+
+  // ================= Tech Tree Ladder =================
+  const ROMAN_ORDER = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+
+  let ladderClassFilter = new Set();
+
+  function buildLegend() {
+    const box = document.getElementById("ladLegend");
+    box.innerHTML = "";
+    const top = document.createElement("div");
+    top.className = "legend-top";
+    const hint = document.createElement("span");
+    hint.className = "gec-muted";
+    hint.textContent = ladderClassFilter.size ? ladderClassFilter.size + " class(es) selected" : "Tap a class to filter. None selected shows everything.";
+    top.appendChild(hint);
+    if (ladderClassFilter.size) {
+      const clear = document.createElement("button");
+      clear.className = "view-btn";
+      clear.textContent = "Show all";
+      clear.onclick = () => { ladderClassFilter = new Set(); buildLegend(); renderLadder(); };
+      top.appendChild(clear);
+    }
+    box.appendChild(top);
+    GROUPS.forEach(([title, keys]) => {
+      const g = document.createElement("div");
+      g.className = "legend-group";
+      const h = document.createElement("div");
+      h.className = "legend-title";
+      h.textContent = title;
+      g.appendChild(h);
+      keys.forEach(k => {
+        const item = document.createElement("div");
+        item.className = "legend-item" + (ladderClassFilter.has(k) ? " active" : "");
+        item.dataset.cls = k;
+        item.innerHTML = '<span class="legend-icon">' + CLASS_ICONS[k] + '</span><span>' + CLASS_LABELS[k] + '</span>';
+        item.onclick = () => {
+          if (ladderClassFilter.has(k)) ladderClassFilter.delete(k);
+          else ladderClassFilter.add(k);
+          buildLegend();
+          renderLadder();
+        };
+        g.appendChild(item);
+      });
+      box.appendChild(g);
+    });
+  }
+
+  function setupLadder() {
+    buildLegend();
+    const nations = [];
+    DATA.forEach(d => { if (!nations.includes(d.nation)) nations.push(d.nation); });
+    const fill = (sel, options, value) => {
+      sel.innerHTML = "";
+      options.forEach(o => {
+        const op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      sel.value = value;
+    };
+    const nSel = document.getElementById("ladNation");
+    const tSel = document.getElementById("ladTree");
+    const ySel = document.getElementById("ladType");
+    fill(nSel, nations, "USA");
+    fill(tSel, ["Standard", "Premium", "Squadron"], "Standard");
+    fill(ySel, ["Ground", "Aircraft", "Helicopter", "Naval"], "Ground");
+    [nSel, tSel, ySel].forEach(s => s.onchange = renderLadder);
+  }
+
+  function renderLadder() {
+    const body = document.getElementById("ladderBody");
+    const nation = document.getElementById("ladNation").value;
+    const tree = document.getElementById("ladTree").value;
+    const type = document.getElementById("ladType").value;
+    let items = DATA.filter(d => d.nation === nation && d.tree === tree && d.type === type);
+    if (ladderClassFilter.size) {
+      items = items.filter(d => ladderClassFilter.has(CLASS_MAP[d.nation + "|" + d.name]));
+    }
+
+    body.innerHTML = "";
+    if (items.length === 0) {
+      const msg = ladderClassFilter.size
+        ? "No " + tree.toLowerCase() + " " + type.toLowerCase() + " vehicles in the selected classes for " + nation + "."
+        : "No " + tree.toLowerCase() + " " + type.toLowerCase() + " vehicles for " + nation + ".";
+      body.innerHTML = '<div class="gec-muted" style="padding:20px">' + msg + '</div>';
+      return;
+    }
+
+    // Group by rank, keeping the order the wiki lists them in
+    const groups = {};
+    items.forEach(d => { (groups[d.rank] = groups[d.rank] || []).push(d); });
+    const ranks = Object.keys(groups).sort((a, b) => {
+      const ia = ROMAN_ORDER.indexOf(a), ib = ROMAN_ORDER.indexOf(b);
+      if (ia === -1 && ib === -1) return a.localeCompare(b);
+      if (ia === -1) return 1;   // TBD ranks go last
+      if (ib === -1) return -1;
+      return ia - ib;
+    });
+
+    ranks.forEach(rank => {
+      const row = document.createElement("div");
+      row.className = "ladder-row";
+      const label = document.createElement("div");
+      label.className = "ladder-rank";
+      label.textContent = rank === "TBD" ? "Rank TBD" : "Rank " + rank;
+      row.appendChild(label);
+
+      const wrap = document.createElement("div");
+      wrap.className = "ladder-items";
+      groups[rank].forEach(d => {
+        const chip = document.createElement("div");
+        chip.className = "ladder-chip" + (d.br === "TBD" ? " tbd" : "");
+        const name = document.createElement("div");
+        name.className = "name";
+        const cls = CLASS_MAP[d.nation + "|" + d.name];
+        if (cls && CLASS_ICONS[cls]) {
+          const ic = document.createElement("span");
+          ic.className = "class-icon";
+          ic.innerHTML = CLASS_ICONS[cls];
+          ic.title = CLASS_LABELS[cls];
+          name.appendChild(ic);
+        }
+        name.appendChild(document.createTextNode(d.name));
+        const br = document.createElement("div");
+        br.className = "br";
+        br.textContent = "BR " + (typeof d.br === "number" ? d.br.toFixed(1) : "TBD");
+        chip.appendChild(name);
+        chip.appendChild(br);
+        wrap.appendChild(chip);
+      });
+      row.appendChild(wrap);
+      body.appendChild(row);
+    });
+  }
+
 
   // ================= G.E.C. (Golden Eagle Calculator) =================
   const RP_PER_GE = 45;
@@ -4565,20 +5105,408 @@
     const views = {
       ledger: { btn: document.getElementById("viewLedger"), el: document.getElementById("ledgerView") },
       gec:    { btn: document.getElementById("viewGEC"),    el: document.getElementById("gecView") },
-      patches:{ btn: document.getElementById("viewPatches"), el: document.getElementById("patchView") }
+      patches:{ btn: document.getElementById("viewPatches"), el: document.getElementById("patchView") },
+      trend:  { btn: document.getElementById("viewTrend"),   el: document.getElementById("trendView") },
+      ladder: { btn: document.getElementById("viewLadder"),  el: document.getElementById("ladderView") },
+      compare:{ btn: document.getElementById("viewCompare"), el: document.getElementById("compareView") },
+      bracket:{ btn: document.getElementById("viewBracket"), el: document.getElementById("bracketView") }
     };
     function showView(name) {
+      currentView = name;
+      updateHash();
       Object.keys(views).forEach(k => {
         views[k].el.hidden = k !== name;
         views[k].btn.classList.toggle("active", k === name);
       });
       if (name === "gec") renderGEC();
       if (name === "patches") renderPatches();
+      if (name === "trend") renderTrend();
+      if (name === "ladder") renderLadder();
+      if (name === "compare") renderCompare();
+      if (name === "bracket") renderBracket();
     }
     Object.keys(views).forEach(k => { views[k].btn.onclick = () => showView(k); });
   }
 
+
+  // ================= BR Trend =================
+  // BR changes from the Google Sheets (Aug 2025 to Oct 2026, plus an undated naval sheet).
+  // Keys are vehicle names. Each entry is one sheet. nation is null when the sheet doesn't say.
+  // Each mode is [was, now].
+  const BR_HISTORY = {"Rafale C F3":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"airSim":[14.0,14.3]},{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"Typhoon FGR.4":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"airSim":[14.0,14.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"F-2000A":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"airSim":[14.0,14.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"EF-2000":[{"label":"Aug 2025","order":"2025-08","nation":"Germany","arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"airSim":[14.0,14.3]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"Su-30SM":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"airSim":[14.0,14.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"Mirage 2000-5F":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"airSim":[13.7,14.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[14.0,14.3],"groundRealistic":[12.7,13.7],"airSim":[14.0,14.3]}],"Mirage 2000-5Ei":[{"label":"Aug 2025","order":"2025-08","nation":"China","arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"airSim":[13.7,14.0]},{"label":"Oct 2026","order":"2026-10","nation":"China","airRealistic":[14.0,14.3],"groundRealistic":[12.7,13.7],"airSim":[14.0,14.3]}],"F-15J(M)":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[13.7,14.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.3],"airSim":[13.7,14.0]}],"Su-34":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[13.3,13.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[13.3,13.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[13.0,13.7],"airSim":[13.3,14.0]}],"F-16A ADF":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[12.7,13.3],"airRealistic":[12.7,13.3],"groundRealistic":[12.0,12.7],"airSim":[13.0,13.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[13.3,13.7],"groundRealistic":[12.7,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.3,13.7],"groundRealistic":[12.3,13.0],"airSim":[13.3,13.7]},{"label":"Aug 2025","order":"2025-08","nation":"Italy","arcade":[12.7,13.3],"airRealistic":[12.7,13.3],"groundRealistic":[12.0,12.7],"airSim":[13.0,13.3]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","arcade":[13.3,13.7],"groundRealistic":[12.7,12.3]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","airRealistic":[13.3,13.7],"groundRealistic":[12.3,13.0],"airSim":[13.3,13.7]}],"F-16A MLU":[{"label":"Aug 2025","order":"2025-08","nation":"China","arcade":[12.7,13.3],"airRealistic":[12.7,13.3],"groundRealistic":[12.0,12.7],"airSim":[13.0,13.3]},{"label":"Aug 2026","order":"2026-08","nation":"China","arcade":[13.3,13.7]},{"label":"Oct 2026","order":"2026-10","nation":"China","airRealistic":[13.3,13.7],"groundRealistic":[12.7,13.3]}],"AV-8B Plus":[{"label":"Aug 2025","order":"2025-08","nation":"Italy","arcade":[13.0,13.3]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[12.0,12.7]},{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[13.0,13.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.7]}],"Su-25BM":[{"label":"Aug 2025","order":"2025-08","nation":null,"groundRealistic":[11.0,10.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]}],"Su-17M2":[{"label":"Aug 2025","order":"2025-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]}],"F-4C Phantom II":[{"label":"Aug 2025","order":"2025-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[10.7,10.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,10.0]}],"Ayit":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[9.3,9.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[9.7,10.0],"groundRealistic":[10.0,10.7]}],"Yak-28B":[{"label":"Aug 2025","order":"2025-08","nation":null,"arcade":[10.7,10.3],"airRealistic":[9.3,9.0],"groundRealistic":[9.3,8.7],"airSim":[9.3,9.0]},{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.7,8.3]},{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.0,7.7],"naval":[9.0,9.3]}],"Su-7B":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[9.3,9.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[9.0,9.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Su-7BKL":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[9.3,9.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[9.0,9.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Su-7BMK":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[9.3,9.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[9.0,9.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Hunter F.1":[{"label":"Aug 2025","order":"2025-08","nation":null,"airRealistic":[9.0,8.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"Sea Hawk Mk.100":[{"label":"Aug 2025","order":"2025-08","nation":"Germany","airRealistic":[8.0,8.3]}],"Sea Hawk Mk.50":[{"label":"Aug 2025","order":"2025-08","nation":"France","airRealistic":[8.0,8.3]}],"Yak-9K":[{"label":"Aug 2025","order":"2025-08","nation":null,"groundRealistic":[4.7,5.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[5.0,5.3]}],"F/A-18E":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"EF-2000 (AESA)":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"Su-30SM2":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"Typhoon (AESA)":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"F-2000A (AESA)":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"Rafale M F3-R":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"airSim":[14.3,14.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"JAS39E":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"groundRealistic":[12.7,13.0],"airSim":[14.0,14.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"F-15A":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[13.0,12.7],"airRealistic":[13.0,12.7],"airSim":[13.0,12.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.0]}],"F-15J":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[13.0,12.7],"airRealistic":[13.0,12.7],"airSim":[13.0,12.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]}],"Baz":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[13.0,12.7],"airRealistic":[13.0,12.7],"airSim":[13.0,12.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.0]}],"F-16I Sufa":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[12.7,13.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[14.0,13.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[13.0,13.7]}],"F-16A":[{"label":"Jan 2026","order":"2026-01","nation":"France","arcade":[13.0,12.7],"airRealistic":[13.0,12.7],"airSim":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":"France","groundRealistic":[12.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":"France","groundRealistic":[12.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[12.0,12.3]}],"Netz":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[12.7,12.3],"airRealistic":[12.7,12.3],"airSim":[13.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3],"airSim":[12.3,12.7]}],"Netz (Mod)":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[12.7,12.3],"airRealistic":[12.7,12.3],"airSim":[13.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3],"airSim":[12.3,12.7]}],"F-104S.ASA":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[12.0,11.7],"airRealistic":[12.0,11.7],"groundRealistic":[11.3,11.0]}],"F-111C":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","groundRealistic":[11.3,11.7]}],"A-7K":[{"label":"Jan 2026","order":"2026-01","nation":null,"airRealistic":[11.3,11.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[11.0,10.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.0,11.3]}],"F-104S TAF":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[11.0,10.7]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[10.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[10.0,9.7]}],"F-104S":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[11.0,10.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.0,9.7]}],"A-7E":[{"label":"Jan 2026","order":"2026-01","nation":null,"airRealistic":[10.7,10.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]},{"label":"Jan 2026","order":"2026-01","nation":"Japan","airRealistic":[10.7,10.3]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[10.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","groundRealistic":[10.7,11.3]}],"Shenyang F-5":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[9.3,9.0],"airRealistic":[9.3,9.0],"groundRealistic":[9.3,9.0],"airSim":[9.3,9.0]}],"Yak-30D":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[9.0,8.7],"airRealistic":[8.7,8.3],"groundRealistic":[8.7,8.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]}],"S.O.4050 Vautour IIA":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"Vautour IIA IDF/AF":[{"label":"Jan 2026","order":"2026-01","nation":"France","groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"B-57A":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.0,7.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.7,7.3],"naval":[8.3,9.3]}],"B-57B":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.0,7.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.7,7.3],"naval":[8.3,9.3]}],"Canberra B.Mk.2":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.3,7.7]}],"Canberra B(I).Mk.6":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.0,7.7]}],"Tu-4":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.3,7.0]},{"label":"Jan 2026","order":"2026-01","nation":"China","groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[7.3,7.0]}],"IL-28":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.3,7.0],"naval":[8.0,9.3]},{"label":"Jan 2026","order":"2026-01","nation":"Germany","groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[7.3,7.0],"naval":[8.0,9.3]},{"label":"Jan 2026","order":"2026-01","nation":"Italy","groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[7.3,7.0],"naval":[8.0,9.3]}],"H-5":[{"label":"Jan 2026","order":"2026-01","nation":"China","groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.3,7.0],"naval":[8.0,9.3]}],"IL-28Sh":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.7,7.3]}],"Tu-14T":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.7,7.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.3,7.0],"naval":[8.0,9.3]}],"B-29A-BN":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.0,6.7]},{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[7.0,6.7]}],"MB-326K":[{"label":"Jan 2026","order":"2026-01","nation":null,"airRealistic":[7.0,7.3]},{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[7.0,7.3],"airRealistic":[7.3,7.7],"groundRealistic":[7.0,7.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[7.7,8.0],"groundRealistic":[7.3,7.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[7.3,7.7]}],"L-39ZA Albatros":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[6.7,6.3]}],"DB-LK":[{"label":"Jan 2026","order":"2026-01","nation":null,"arcade":[2.0,2.7]}],"Potez 633":[{"label":"Jan 2026","order":"2026-01","nation":null,"airRealistic":[1.7,1.3],"groundRealistic":[1.7,1.3]}],"EC-665 Tiger UHT":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"Tiger HAD Block 2":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"EC-665 Tiger HAC":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"AH-129D":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"MH-60L DAP":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[11.3,11.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"Mi-8TB":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.3,8.0]}],"Mi-8TV":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[8.3,8.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.0,8.3]}],"H-34":[{"label":"Jan 2026","order":"2026-01","nation":null,"groundRealistic":[7.7,8.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.0,8.7]}],"Kfir C.10":[{"label":"Apr 2026","order":"2026-04","nation":"Israel","airRealistic":[13.0,13.3]},{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","arcade":[13.0,13.7],"airRealistic":[13.3,13.7],"groundRealistic":[12.0,12.7],"airSim":[13.0,13.7]}],"F-14A IRIAF":[{"label":"Apr 2026","order":"2026-04","nation":"USA","airRealistic":[13.0,13.3],"airSim":[12.7,13.0]},{"label":"Aug 2026","order":"2026-08","nation":"USA","arcade":[12.7,13.0],"airRealistic":[13.3,13.7]},{"label":"Oct 2026","order":"2026-10","nation":"USA","arcade":[13.0,12.7]}],"J-10C":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[12.7,13.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"Mirage 2000C-S5":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[12.7,12.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7]}],"MiG-29 (9-12B)":[{"label":"Apr 2026","order":"2026-04","nation":"Italy","airSim":[12.7,12.3]}],"MiG-29 (9-12A)":[{"label":"Apr 2026","order":"2026-04","nation":"Germany","airSim":[12.7,12.3]}],"MiG-29 (9-12)":[{"label":"Apr 2026","order":"2026-04","nation":null,"airSim":[12.7,12.3]}],"MiG-29 Sniper":[{"label":"Apr 2026","order":"2026-04","nation":null,"airSim":[12.7,12.3]}],"JH-7A":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[12.3,12.7],"groundRealistic":[11.7,12.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"JH-7A Prototype":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[12.3,12.7],"groundRealistic":[11.7,12.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"F-14B":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[12.7,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"A-10C":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[12.0,11.7]}],"Tornado GR.1":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,12.0]}],"Tornado IDS (1995)":[{"label":"Apr 2026","order":"2026-04","nation":"Italy","airRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[11.3,11.7]}],"Tornado IDS ASSTA1":[{"label":"Apr 2026","order":"2026-04","nation":"Germany","airRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[11.3,11.7]}],"JH-7":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[11.3,11.7],"airRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[11.7,12.0]}],"F-4S Phantom II":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[11.0,10.7]}],"F-5A":[{"label":"Apr 2026","order":"2026-04","nation":"China","groundRealistic":[10.7,10.3]},{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[10.3,9.7]},{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[10.3,10.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[10.3,9.7]}],"Jaguar A":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[10.3,10.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]}],"F8U-2":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[10.3,10.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,9.3]}],"F-111A":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[10.3,10.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,10.0]}],"F-5C":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[10.3,10.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"F-104C":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[9.3,9.7],"groundRealistic":[9.3,9.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.3,9.0]}],"F-106A":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[9.3,9.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Alpha Jet A (JaboG 41)":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[8.7,9.0]}],"Alpha Jet A":[{"label":"Apr 2026","order":"2026-04","nation":"Japan","airRealistic":[8.7,9.0]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[8.7,9.0]}],"Alpha Jet E":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[8.7,9.0]}],"Scimitar F Mk.1":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.7,9.0]}],"SAAB-105G":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.3,8.7]}],"CL-13 Mk.4":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[8.0,7.7],"airRealistic":[8.3,8.0],"groundRealistic":[8.3,8.0]}],"MiG-15bis ISh":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.0,8.3]}],"F-80C-10":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[7.7,8.0],"groundRealistic":[7.7,8.0]}],"Su-11":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[7.7,8.0]}],"Yak-15":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[6.7,7.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[6.7,7.0]}],"BI":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[6.7,7.0],"groundRealistic":[6.7,7.0]}],"Spitfire F Mk 24":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[6.7,7.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[6.7,7.0]}],"F7F-3":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[6.3,6.7]}],"Re.2005 serie 0":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[6.0,6.3],"groundRealistic":[6.0,6.3]}],"Re.2005 (VDM)":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[6.0,6.3],"groundRealistic":[6.0,6.3]}],"Yak-9UT":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[6.0,6.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[6.3,6.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[6.7,7.0]}],"J2M2":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.3,5.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"J2M4 Kai":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.3,5.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"Spitfire Mk IXc":[{"label":"Apr 2026","order":"2026-04","nation":"USSR","arcade":[5.3,5.7],"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]},{"label":"Aug 2026","order":"2026-08","nation":"USSR","groundRealistic":[6.0,6.3]},{"label":"Aug 2026","order":"2026-08","nation":"Israel","airRealistic":[4.3,4.7],"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","groundRealistic":[4.7,5.0]}],"Plagis' Spitfire LF Mk IXc":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.3,5.7],"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[6.0,6.3]}],"Spitfire LF Mk IX":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.3,5.7],"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[6.0,6.3]}],"Spitfire LF Mk IXc":[{"label":"Apr 2026","order":"2026-04","nation":"USA","arcade":[5.3,5.7],"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]},{"label":"Aug 2026","order":"2026-08","nation":"USA","groundRealistic":[6.0,6.3]}],"Weizman's Spitfire LF Mk.IXe":[{"label":"Apr 2026","order":"2026-04","nation":"Israel","arcade":[5.3,5.7],"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]}],"N1K1-Ja":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[5.3,5.7],"groundRealistic":[5.3,5.7]}],"A6M5 Otsu":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.3,5.7],"groundRealistic":[5.3,5.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]}],"A7M2":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.3,5.7],"groundRealistic":[5.3,5.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"A6M5 Ko":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.3,5.7]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.7,6.0],"groundRealistic":[5.7,6.0]}],"A7M1 (NK9H)":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.0,5.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.3,5.7],"groundRealistic":[5.3,5.7]}],"A6M6c":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.3,5.7],"groundRealistic":[5.3,5.7]}],"A6M5 Hei":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,5.3],"airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.3,5.7]}],"G.55 serie 1":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]}],"NC.900":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]}],"Fw 190 A-8":[{"label":"Apr 2026","order":"2026-04","nation":"USA","airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]},{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[5.0,5.3],"groundRealistic":[5.0,5.3]}],"G.55S":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[5.0,5.3]}],"B-24D-25-CO":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,4.7]}],"Wyvern S.4":[{"label":"Apr 2026","order":"2026-04","nation":null,"airRealistic":[4.7,5.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.0,5.3]}],"Lancaster B Mk I":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[5.0,4.7],"airRealistic":[5.0,4.7]}],"Yak-3":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[4.3,4.7],"airRealistic":[4.3,4.7],"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.7,5.0]},{"label":"Apr 2026","order":"2026-04","nation":"France","arcade":[4.3,4.7],"airRealistic":[4.3,4.7],"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":"France","groundRealistic":[4.7,5.0]}],"Eremin's Yak-3(e)":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[4.0,4.3],"airRealistic":[4.0,4.3],"groundRealistic":[4.0,4.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.3,4.7],"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.7,5.0]}],"FR-1 Fireball":[{"label":"Apr 2026","order":"2026-04","nation":null,"arcade":[4.3,4.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[4.0,3.7]}],"AH-60":[{"label":"Apr 2026","order":"2026-04","nation":"Israel","groundRealistic":[13.0,12.7]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","airRealistic":[12.7,13.0]}],"Z-11WA":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.7,9.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.7]}],"SA.342L Gazelle":[{"label":"Apr 2026","order":"2026-04","nation":null,"groundRealistic":[8.7,9.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,9.7]}],"MiG-29SMT (9-19)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[13.3,13.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.3,13.7],"groundRealistic":[12.3,12.7],"airSim":[13.3,13.7]}],"JA37DI F21":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[13.0,13.3],"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"airSim":[13.0,13.3]}],"JA37DI":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[13.0,13.3],"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"airSim":[13.0,13.3]}],"Mirage 2000D-RMV":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.7,13.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[13.0,13.7]}],"Mirage 4000":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.3,12.0]}],"CF-188A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"F/A-18C Early":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"F/A-18C":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[12.0,12.3]}],"MiG-29N":[{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","arcade":[13.0,13.7],"airRealistic":[13.3,13.7],"groundRealistic":[12.0,12.3],"airSim":[13.3,13.7]}],"F-5TH TCU":[{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[12.3,12.0]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[12.0,12.7]}],"J-8F":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"Su-33":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]}],"J-11":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]}],"Su-27":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]}],"F-16A OCU":[{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[12.7,13.3]}],"F-14D":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[12.7,12.3],"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"MiG-29 (9-13)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]}],"MiG-29G":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[12.0,11.7]}],"F-4F":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","arcade":[11.3,11.0]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[10.3,10.7]}],"Mirage 2000C-S4":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7],"airSim":[12.7,12.3]}],"MiG-21 2000":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","airRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","groundRealistic":[11.3,11.7]}],"Su-39":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[11.7,12.0]}],"JA37D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.0]}],"F-4EJ Kai Phantom II":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[12.0,12.3]}],"Tornado F.3":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.0]}],"Tornado ADV":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.0]}],"Kfir C.2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.0,10.7]}],"Hawk 200 RDA":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.0,10.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]}],"MiG-25PD":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[10.7,11.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[11.0,11.3],"airSim":[11.0,10.7]}],"J-22M1A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,11.0],"naval":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.0,11.7]}],"A-6E TRAM":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,11.0]}],"F-4J(UK) Phantom II":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"Phantom FG.1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"Phantom FGR.2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"F-4EJ ADTW":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"F-4EJ Phantom II":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"Saab J35XS":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[10.3,10.0]}],"Saab F-35":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,10.0]}],"J-8B":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"AV-8S Late":[{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[10.7,10.3]}],"Sea Harrier FRS.1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.7,10.3]}],"Buccaneer S.2B":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,10.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.7]}],"MiG-21MF":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[10.3,9.7]},{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.3,9.7]}],"MiG-21SMT":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,9.7]}],"J-7D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,9.7]}],"F-8E":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,9.7]}],"Sea Harrier FRS.1 (e)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,10.0]}],"J35D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[10.0,9.7]}],"Mirage IIIE":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.3,9.7]}],"Mirage IIIS C.70":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.3,9.7]}],"NF-5A":[{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[10.3,9.7]}],"Mirage 5BA":[{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[10.3,9.7]}],"Mirage 5F":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"Mirage IIIC":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"Shahak":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"F-8E(FN)":[{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[10.0,9.7]}],"Nesher":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,9.3]}],"A-5C":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[11.0,11.3],"airRealistic":[10.7,11.0],"airSim":[10.7,11.0]}],"Su-25K":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"Su-25":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"Tornado IDS WTD61":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.0,9.7]}],"Tornado IDS":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[10.0,9.7]}],"Tornado IDS MFG":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.0,9.7]}],"Su-22M3":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[10.0,9.7]}],"Su-22UM3K":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.0,9.7]}],"F-105D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"F-104G":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[9.7,9.3]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[9.7,9.3]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":"France","groundRealistic":[9.7,9.3]},{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":"China","groundRealistic":[9.7,9.3]}],"F-104J":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,9.3]}],"F-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[10.0,9.7]}],"MiG-23BN":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.7,9.3]}],"Hunter F.6":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.7,10.0],"groundRealistic":[9.7,9.3]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[9.0,8.7]}],"F-6C":[{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[9.7,9.3]},{"label":"Oct 2026","order":"2026-10","nation":"China","arcade":[10.0,9.7],"groundRealistic":[9.3,9.0]}],"J35A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.3,9.0]}],"Jaguar GR.1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]}],"T-2 Early":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[10.0,10.3],"groundRealistic":[9.7,9.3]}],"T-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[10.0,10.3],"groundRealistic":[9.7,9.3]}],"AV-8S":[{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[9.7,9.3]}],"AV-8A":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[9.3,9.7],"groundRealistic":[9.7,9.3]}],"AV-8C":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]}],"Harrier GR.1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]}],"Harrier GR.3":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]}],"MiG-21S (R-13-300)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.7,9.3]}],"Yak-130":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[9.0,9.3],"groundRealistic":[9.3,9.7],"naval":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[9.3,9.7],"groundRealistic":[9.7,10.3]}],"MiG-21F-13":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"MiG-21PFM":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"MiG-21 SPS-K":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.3,9.0]}],"J-7II":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"J-6A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"MiG-19PT":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"MiG-19S":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.3,9.0]}],"J32B":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"F-101C":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.0,8.7]}],"Lightning F.53":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.0,8.7]}],"Lightning F.6":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.0,8.7]}],"F-100F":[{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[9.3,9.0]}],"F-100A":[{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[9.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":"China","arcade":[9.7,9.3]}],"F-100D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[9.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":"France","arcade":[9.7,9.3]}],"Yak-38":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Yak-38M":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Q-5A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"Hunter F.58A (1971)":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.3,9.0]}],"Buccaneer S.2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]}],"F-104A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.3,9.0]},{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[9.3,9.0]}],"G.91 Y":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,9.3]}],"FJ-4B VMF-232":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,9.3]}],"F11F-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"J34":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"CL-13B Mk.6":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.0,8.7]}],"F-86K":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.0,8.7]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[9.0,8.7]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[9.0,8.7]}],"J29F":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"FFA P-16":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[9.0,8.7]}],"Q-5 early":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"Sambad":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"Super Mystere B2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"Sa'ar":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7]}],"HF-24 (Britain)":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,8.7],"groundRealistic":[9.0,8.7]}],"F3H-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.0,8.7],"naval":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.3]}],"B-66B":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.7,8.3],"naval":[9.0,9.3]}],"B-52H":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.7,8.3]}],"Buccaneer S.1":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[8.7,8.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[9.7,9.3]}],"G.91 R/1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.7,8.3]}],"Tu-95M":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]}],"Me 163 B-0":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]}],"S.O.4050 Vautour IIN":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"S.O.4050 Vautour IIB":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"Vautour IIN":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"Vautour IIA":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","airRealistic":[9.0,8.7],"groundRealistic":[8.3,8.0]}],"J29D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]}],"A-4H":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[8.3,8.0]}],"F-84F":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":"Germany","groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[8.3,8.0]},{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[8.3,8.0]}],"F-84F IAF":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.3,8.0]}],"F-86F-25":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[7.7,8.0]}],"Canberra B Mk 2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.7,7.3],"naval":[8.3,9.3]}],"Canberra B (I) Mk 6":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.7,7.3],"naval":[8.3,9.3]}],"F-86F-35":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[7.3,7.7]}],"L-39ZA/ART Albatros":[{"label":"Aug 2026","order":"2026-08","nation":"Japan","groundRealistic":[7.3,7.7]}],"F3D-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[7.0,6.7]}],"Me 262 A-1/U4":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[5.7,5.3],"airRealistic":[6.3,6.0],"groundRealistic":[6.7,6.3]}],"Weizman's ���Spitfire LF Mk.IXe":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[6.0,6.3]}],"Ju 288 C":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[6.0,6.3],"airRealistic":[6.0,6.3]}],"Spitfire F Mk XVIIIe":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"Spitfire LF Mk IXc (CW)":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[5.7,6.0]}],"Seafire FR 47":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"Yak-3 (VK-107)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"Yak-3U":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"P-59A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"Ki-84 Otsu":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,6.0]}],"Ki-87":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.7,5.3],"groundRealistic":[5.7,5.3]}],"S.O.8000 Narval":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.7,5.3],"groundRealistic":[5.7,5.3]}],"AD-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.7,5.3]}],"Seafire F Mk XVII":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.3,5.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[5.7,6.0]}],"Tu-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.3,5.0],"groundRealistic":[5.3,5.0]}],"La-11":[{"label":"Aug 2026","order":"2026-08","nation":"China","airRealistic":[5.3,5.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[5.3,5.0]}],"A-26B-50":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.3,5.0]}],"F-82E":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.3,5.0]}],"Spitfire Mk Vc":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[5.3,5.7]}],"A6M3 mod. 22Ko":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"A6M5":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"Seafire LF Mk.III":[{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[5.0,5.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"Yak-3T":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[5.3,5.7]}],"Yak-3P":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[5.3,5.7]}],"J2M5 (Type 5)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,5.3]}],"Yak-9P":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","arcade":[5.0,5.3],"groundRealistic":[5.0,5.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[5.0,5.3],"groundRealistic":[5.0,5.3]}],"Su-6 (AM-42)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[5.0,4.7]}],"A-26B-10":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[5.0,4.7]}],"Spitfire F Mk IXc":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.7,5.0]}],"Yak-9U":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.7,5.0],"groundRealistic":[4.7,5.0]}],"Ki-61-I Hei":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.7,5.0]}],"Tada's Ki-61-I Hei":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.7,5.0]}],"P-38L-1":[{"label":"Aug 2026","order":"2026-08","nation":"China","groundRealistic":[4.7,4.3]}],"P-38L-5-LO":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.7,4.3]}],"Do 335 A-0":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.7,4.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[4.7,4.3],"groundRealistic":[4.3,4.0]}],"Su-8":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.7,4.3],"groundRealistic":[4.7,4.3]}],"VL Py��rremyrsky":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.7,5.0],"airRealistic":[4.3,4.7]}],"IA.58A Pucara":[{"label":"Aug 2026","order":"2026-08","nation":"Germany","arcade":[4.3,4.7],"airRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[4.7,5.0],"airRealistic":[4.7,5.0]}],"Spitfire F Mk IX":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.3,4.7],"groundRealistic":[4.3,4.7]}],"A6M3 mod. 22":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.3,4.7],"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.7,5.0]}],"XP-55":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.7,5.0]}],"Bf 109 G-2/trop":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.7]}],"Bf 109 G-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.7]},{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[4.3,4.7]},{"label":"Aug 2026","order":"2026-08","nation":"Sweden","groundRealistic":[4.3,4.7]}],"Me 410 B-1/U2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.0]}],"Do 335 A-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[4.3,4.0],"groundRealistic":[4.0,3.7]}],"T18B (57)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[4.3,4.0]}],"T18B":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.7,4.0],"groundRealistic":[4.3,4.0]}],"Su-6 (M-71F)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.7,4.3],"airRealistic":[4.3,4.0],"groundRealistic":[4.3,4.0]}],"Ju 388 J":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.3,4.0],"groundRealistic":[4.3,4.0]}],"He 219 A-7":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.3,4.0],"groundRealistic":[4.3,4.0]}],"TIS MA":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.3,4.0]}],"A6M3":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.0,4.3],"groundRealistic":[4.0,4.3]}],"Ki-100":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.0,4.3],"groundRealistic":[4.0,4.3]}],"ITP (M-1)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.7,5.0],"airRealistic":[4.0,4.3],"groundRealistic":[4.0,4.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.3,4.7]}],"Su-6":[{"label":"Aug 2026","order":"2026-08","nation":null,"airRealistic":[4.0,3.7],"groundRealistic":[4.0,3.7]}],"Spitfire Mk Vb/trop":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","groundRealistic":[3.7,4.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,4.0]}],"B7A2 (Homare 23)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.7,4.0],"airRealistic":[3.7,4.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[4.0,4.3]}],"B7A2":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.7,4.0],"airRealistic":[3.7,4.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[4.0,4.3]}],"Pe-2-110":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"Firebrand TF Mk IV":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"Me 410 A-1/U2":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.0,3.7],"groundRealistic":[3.7,3.3]}],"Mosquito B.Mk.XVI":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[3.7,4.0]}],"Mosquito FB.Mk.26":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[4.0,3.7],"groundRealistic":[3.7,3.3]}],"Mosquito FB Mk VI ASH":[{"label":"Aug 2026","order":"2026-08","nation":"Sweden","groundRealistic":[3.7,3.3]}],"Mosquito FB Mk VI":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"Mosquito TR.Mk.33":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"Tempest Mk V (Vickers P)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.3,3.0],"groundRealistic":[3.7,3.3]}],"SM.91":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"XA-38":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]}],"Bf 110 G-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.7,3.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[3.3,3.0]}],"Ki-61-I Ko":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.3,3.7]}],"M.B.157":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.3,3.7],"airRealistic":[3.3,3.7],"groundRealistic":[3.3,3.7]}],"Ju 87 D-5":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.3,3.0]}],"IL-2M (1943)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.3,3.0]}],"Pe-2-83":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.3,3.0]}],"La-5F":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.3,3.7]}],"Sakeen":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.3,3.7]}],"Fw 190 A-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[3.0,3.3]}],"Ki-102 Otsu":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,2.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[3.3,3.0],"groundRealistic":[3.3,3.0]}],"SB2C-1C":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,2.7],"groundRealistic":[3.0,2.7]}],"Do 217 N-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,2.7]}],"Ju 88 A-4":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,3.3]},{"label":"Aug 2026","order":"2026-08","nation":"Sweden","arcade":[3.0,3.3]}],"Bf 110 F-2":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,3.3]}],"Hurricane Mk IIB":[{"label":"Aug 2026","order":"2026-08","nation":"USSR","arcade":[3.0,3.3]},{"label":"Oct 2026","order":"2026-10","nation":"USSR","arcade":[3.3,3.7]}],"Yak-9B":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[3.0,3.3]}],"Spitfire Mk IIa":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.7,3.0],"airRealistic":[3.0,3.3],"groundRealistic":[3.0,3.3]}],"Spitfire Mk.IIa Venture I":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.7,3.0],"airRealistic":[3.0,3.3],"groundRealistic":[3.0,3.3]}],"A-35B":[{"label":"Aug 2026","order":"2026-08","nation":"France","arcade":[3.0,2.7],"groundRealistic":[2.7,2.3]}],"I-153P":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.7,3.0]}],"Ki-44-I":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.7,3.0]}],"Ki-44-I 34":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.7,3.0]}],"IAR-81C":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.7,3.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[2.7,3.0]}],"Fw 189 C":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.3,2.7],"airRealistic":[2.7,3.0],"groundRealistic":[2.7,3.0]}],"B-239":[{"label":"Aug 2026","order":"2026-08","nation":"Sweden","airRealistic":[2.7,3.0],"groundRealistic":[2.7,3.0]},{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[3.0,3.3]}],"MiG-3-34":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.7,3.0],"airRealistic":[2.7,3.0]}],"B18A":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"groundRealistic":[2.7,2.3]}],"Su-2 (M-82)":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"groundRealistic":[2.7,2.3]}],"A-20G-25":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.7,2.3]}],"P-40F-5 Lafayette":[{"label":"Aug 2026","order":"2026-08","nation":"France","arcade":[2.3,2.7]}],"P-40F-10":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.3,2.7]}],"LaGG-3-11":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.3,2.7]}],"Yak-2 KABB":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.3,2.7]}],"I-16 type 18":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.3,2.7]}],"Fokker D.XXIII":[{"label":"Aug 2026","order":"2026-08","nation":"France","arcade":[2.3,2.7],"airRealistic":[2.3,2.7],"groundRealistic":[2.3,2.7]},{"label":"Oct 2026","order":"2026-10","nation":"France","arcade":[2.7,3.0],"groundRealistic":[2.7,3.0]}],"WM-23":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","arcade":[2.3,2.7],"airRealistic":[2.3,2.7]}],"B6N2a Model 12Ko":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.3,2.0]}],"B6N2 Model 12":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.3,2.0]}],"MiG-3-15":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[1.7,2.0],"airRealistic":[2.3,2.0],"groundRealistic":[2.3,2.0]}],"F2A-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.0,2.3]}],"Thach's F2A-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[2.0,2.3]}],"J1N1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"groundRealistic":[2.0,2.3]}],"I-153 M-62":[{"label":"Aug 2026","order":"2026-08","nation":"China","arcade":[2.0,2.3]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Zhukovsky's I-153-M62":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"SB 2M-103":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"H��ja II":[{"label":"Aug 2026","order":"2026-08","nation":"Italy","arcade":[2.0,2.3]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","arcade":[2.3,2.7]}],"Re.2000 G.A.":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Re.2000 serie 1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Sea Hurricane Mk IB":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"M.S.410":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"M.S.406C1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"M.S.405C1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Br.693AB2":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"airRealistic":[1.7,2.0],"groundRealistic":[1.7,2.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[2.3,2.7]}],"F.C.20 Bis":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Ki-21-Ia":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Ki-43-III Ko":[{"label":"Aug 2026","order":"2026-08","nation":"China","arcade":[2.0,2.3]}],"PBM-1 \"Mariner\"":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3]}],"Bf 109 C-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"airRealistic":[1.7,2.0],"groundRealistic":[1.7,2.0]},{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[2.0,2.3],"airRealistic":[1.7,2.0],"groundRealistic":[1.7,2.0]}],"He 112 A-0":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[1.7,2.0],"airRealistic":[1.7,2.0],"groundRealistic":[1.7,2.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]}],"Su-2 TSS-1":[{"label":"Aug 2026","order":"2026-08","nation":null,"arcade":[1.7,2.0],"airRealistic":[2.0,1.7]}],"AH-64D":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.0]},{"label":"Aug 2026","order":"2026-08","nation":"France","groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"France","airRealistic":[11.3,11.7]}],"AH Mk.1 Apache":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"Saraph":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[12.0,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"AH-64A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"AHS":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"AH-64A Peten":[{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[11.7,11.3]},{"label":"Aug 2026","order":"2026-08","nation":"Israel","groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"Israel","airRealistic":[11.3,11.7]},{"label":"Aug 2026","order":"2026-08","nation":"USA","groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"USA","airRealistic":[11.3,11.7]}],"AH-64A (GR)":[{"label":"Aug 2026","order":"2026-08","nation":"USA","groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":"USA","airRealistic":[11.3,11.7]}],"AH-64DJP (AT)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"AH-64DJP":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.7,11.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"Z-19E":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"Z-19":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"HKP9A (FC)":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[9.7,9.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,10.0]}],"AH-1G":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.0,7.7]}],"Tzefa A":[{"label":"Aug 2026","order":"2026-08","nation":null,"groundRealistic":[8.0,7.7]}],"J-16":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"Rafale EG":[{"label":"Oct 2026","order":"2026-10","nation":"Israel","arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"F-15C Golden Eagle":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.3,15.0],"airRealistic":[14.3,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.3,15.0]}],"J-15T":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.7,15.0],"airRealistic":[14.7,15.0],"groundRealistic":[13.0,14.0],"airSim":[14.7,15.0]}],"F/A-18F":[{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"F-16V":[{"label":"Oct 2026","order":"2026-10","nation":"China","groundRealistic":[13.0,14.0]}],"F-16CM PoBIT":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[13.0,14.0]}],"Su-30MKM":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","arcade":[14.3,14.7],"airRealistic":[14.3,14.7],"groundRealistic":[13.0,14.0],"airSim":[14.3,14.7]}],"MiG-35":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[13.0,14.0]}],"F-15I Ra���am":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"groundRealistic":[13.0,14.0],"airSim":[14.0,14.3]}],"F-15E":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[14.0,14.3],"airRealistic":[14.0,14.3],"groundRealistic":[13.0,14.0],"airSim":[14.0,14.3]}],"F-2A":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.0],"airSim":[13.7,14.0]}],"Baz Meshupar":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.7],"airSim":[13.7,14.0]}],"F-15C MSIP II":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.7],"airSim":[13.7,14.0]}],"Mirage 2000-5EG":[{"label":"Oct 2026","order":"2026-10","nation":"Israel","airRealistic":[14.0,14.3],"groundRealistic":[12.7,13.7],"airSim":[14.0,14.3]}],"F-16CM":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.7,14.0],"groundRealistic":[13.0,13.7],"airSim":[13.7,14.0]}],"F-16C Barak II":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.7,14.0],"airSim":[13.7,14.0]}],"Su-27SM":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.3],"airSim":[13.7,14.0]}],"J-10A":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.3,13.3],"airSim":[13.7,14.0]}],"MiG-29KR (9-41R)":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"airSim":[13.7,14.0]}],"M-346FA":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.3,13.0]}],"MiG-29M (9-15)":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.3,13.0],"airSim":[13.7,14.0]}],"J-11B":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.7,14.0],"airRealistic":[13.7,14.0],"groundRealistic":[12.7,13.3],"airSim":[13.7,14.0]}],"F-16AM (France, Belgium)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.3]}],"F-16AM (France, Netherlands)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.3]}],"F-16AM":[{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[12.7,13.3]}],"JAS39C":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[12.7,13.3]},{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","groundRealistic":[12.7,13.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.3]}],"JAS39EBS HU C":[{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[12.7,13.3]}],"JAS39D":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.3]}],"F/A-18C MLU 2":[{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[12.7,13.3]}],"F-18C":[{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[12.7,13.3]}],"AF/A-18A Late":[{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","groundRealistic":[12.7,13.3]}],"F/A-18D Late":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[12.7,13.3]}],"F/A-18C Late":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[12.7,13.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.3]}],"F-16D Barak II":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.3,13.7],"groundRealistic":[12.7,13.3]}],"Su-25SM3":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.7,13.0]}],"J-11A":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.3,13.7],"airRealistic":[13.3,13.7],"groundRealistic":[12.7,13.0],"airSim":[13.3,13.7]}],"JH-7A2":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.3,13.3]}],"Su-30MKK":[{"label":"Oct 2026","order":"2026-10","nation":"China","arcade":[13.3,13.7],"airRealistic":[13.3,13.7],"groundRealistic":[12.3,13.3],"airSim":[13.3,13.7]}],"Su-30MK2 AMV":[{"label":"Oct 2026","order":"2026-10","nation":"USSR","arcade":[13.3,13.7],"airRealistic":[13.3,13.7],"groundRealistic":[12.3,13.0],"airSim":[13.3,13.7]}],"Tornado GR.4":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.3,13.0]}],"JF-17":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.3,13.0]}],"F-2A ADTW":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.3,12.7]}],"F/A-18A":[{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","groundRealistic":[12.0,12.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"Sea Harrier FA 2":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"F-4F KWS LV":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"groundRealistic":[12.0,12.3],"airSim":[13.0,13.3]}],"F-4E AUP Phantom II":[{"label":"Oct 2026","order":"2026-10","nation":"Israel","arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"groundRealistic":[12.3,13.3],"airSim":[13.0,13.3]}],"F-16XL":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"groundRealistic":[12.3,13.0],"airSim":[13.0,13.3]}],"Tornado F.3 Late":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[13.0,13.3],"airRealistic":[13.0,13.3],"groundRealistic":[12.0,12.3]}],"AV-8B (NA)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"Harrier T.10":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"F-16AJ":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3],"airSim":[13.0,12.7]}],"JAS39A":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[12.0,12.3]}],"F-4E Phantom II":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,12.0]}],"Kurnass":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,12.0]}],"F-5T SCU":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[11.3,12.0]}],"F-5E FCU":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[11.3,12.0]}],"F-14D (VF-11)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.3]}],"F-20A":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.7,12.0]}],"Su-25T":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[11.7,12.0]}],"Su-24M":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7]}],"MiG-27K":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7]}],"AMX A-1A":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7]}],"F-5E":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.3,11.7]},{"label":"Oct 2026","order":"2026-10","nation":"China","groundRealistic":[11.3,11.7]}],"MiG-27M":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.0,11.3]}],"Su-22M4":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[11.0,11.3]}],"Su-22M4 WTD61":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[11.0,11.3]}],"Su-17M4":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[11.0,11.3]}],"AJS37 (Early)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.7]}],"AJS37":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.7]}],"Hawk 209":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","groundRealistic":[10.7,11.7]}],"Hawk 200":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]}],"A-10A Late":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.7,11.3]}],"Q-5L":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,11.0]}],"Jaguar GR.1A":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,11.0]}],"A-7D":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,11.0]}],"A-10A":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,11.0]}],"AJ37":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,10.7]}],"MiG-23M":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,10.7],"groundRealistic":[10.3,10.0]}],"MiG-23MF":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[11.0,10.7],"groundRealistic":[10.3,10.0]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","airRealistic":[11.0,10.7],"groundRealistic":[10.3,10.0]}],"MiG-21bis-SAU":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[10.3,10.0]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","groundRealistic":[10.3,10.0]}],"MiG-21bis":[{"label":"Oct 2026","order":"2026-10","nation":"Sweden","groundRealistic":[10.3,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.3,10.0]}],"MiG-21 \"Lazur-M\"":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[10.3,10.0]}],"Kfir Canard":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3],"groundRealistic":[10.3,10.0],"airSim":[11.0,11.3]}],"Alpha Jet TH":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","arcade":[10.7,11.0]}],"J35J":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[10.3,10.0]}],"F-117":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[10.0,10.3]}],"Hunter F.58":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","groundRealistic":[9.7,10.3]}],"A-4E":[{"label":"Oct 2026","order":"2026-10","nation":"Israel","groundRealistic":[9.3,10.0]}],"A-4E Early (M)":[{"label":"Oct 2026","order":"2026-10","nation":"Israel","groundRealistic":[9.3,10.0]}],"A-4E Early":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[9.3,10.0]}],"CA-27 Mk.32":[{"label":"Oct 2026","order":"2026-10","nation":"Great Britain","airRealistic":[9.0,9.3]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","airRealistic":[9.0,9.3]}],"F4D-1":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[9.3,9.0],"groundRealistic":[9.0,8.7]}],"Vautour IIN(C)":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[8.0,8.3]}],"Sea Vixen F.A.W. Mk.2":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[8.0,8.3]}],"Hawk T Mk 1A":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[7.7,7.3],"airRealistic":[7.7,7.3],"airSim":[7.7,7.3]}],"Hawk T Mk 1A (FRP)":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[7.7,7.3],"airRealistic":[7.7,7.3],"airSim":[7.7,7.3]}],"Kikka":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[7.0,7.3]}],"Yak-17":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[6.7,7.0]}],"F-89D":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[6.7,7.0]}],"Spitfire Mk Vc/trop":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.7,5.0]}],"P-61C-1":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[4.0,3.7]}],"IAR-81C (DB 605)":[{"label":"Oct 2026","order":"2026-10","nation":null,"arcade":[3.0,3.3],"airRealistic":[3.0,3.3]}],"Bf 109 F-2":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[3.0,3.3]}],"IL-2-37":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[2.7,2.3]}],"VL Myrsky II":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.3,2.7]}],"He 112 B-2/U2":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]}],"He 112 B-1/U2":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]}],"He 112 B-0":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]}],"A7He1":[{"label":"Oct 2026","order":"2026-10","nation":null,"groundRealistic":[2.0,2.3]}],"Fokker D.XXI":[{"label":"Oct 2026","order":"2026-10","nation":"France","groundRealistic":[2.0,2.3]}],"Mi-28NM":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.0,13.3]}],"Z-10ME":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.0,13.3]}],"AH-64E":[{"label":"Oct 2026","order":"2026-10","nation":"France","airRealistic":[13.0,13.3]},{"label":"Oct 2026","order":"2026-10","nation":"Japan","airRealistic":[13.0,13.3]},{"label":"Oct 2026","order":"2026-10","nation":"China","airRealistic":[13.0,13.3]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.0,13.3]}],"AH Mk.2 Apache":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[13.0,13.3]}],"H145M":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.7,13.0]}],"AW159 HMA.2":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.3,12.7]}],"Ka-52":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.0,12.3]}],"AH-1Z":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[12.0,12.3]}],"Z-10":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"Z-10A":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"Rooivalk Mk1F CSH":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.3]}],"Mi-35P":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.7,12.0]}],"Peten":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"RAH-66":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"Ka-50":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"YAH-64":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.3,11.7]}],"Mi-8AMTSh-VN":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"Z-9WA":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"EC-665 Tiger HAD":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"Tigre HAD-E":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[11.0,11.3]}],"A129CBT":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"Mi-28N":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[11.0,11.3]}],"G-LYNX":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.7,11.3]}],"Lynx AH.Mk.1":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.7,11.3]}],"T129":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.7,11.0]}],"Mi-28A":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.7,11.0]}],"Mi-35M":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.7,11.0]},{"label":"Oct 2026","order":"2026-10","nation":"China","airRealistic":[10.7,11.0]}],"OH-58D":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.3,11.0]},{"label":"Oct 2026","order":"2026-10","nation":"China","airRealistic":[10.3,11.0]}],"Z-9W":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.3,10.7]}],"AH-6M":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.3,10.7]}],"Superhind":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.3,10.7]}],"EC-665 Tiger HAP":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[10.0,10.7]}],"Ka-29":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"Mi-8AMTSh":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"Mi-35":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","airRealistic":[9.7,10.0]}],"Mi-24V":[{"label":"Oct 2026","order":"2026-10","nation":"Italy","airRealistic":[9.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"Mi-24P":[{"label":"Oct 2026","order":"2026-10","nation":"Italy","airRealistic":[9.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[9.7,10.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"Mi-24P HFS 80":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[9.7,10.0]}],"SA.342M Gazelle":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"AH-1S Kisarazu":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"AH-1F":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"Tzefa D/E":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"AH-1S":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"AH-56A":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.7,10.0]}],"BO 105 PAH-1A1":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,9.7]}],"BO 105 PAH-1":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,9.7]}],"HKP9A":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,9.7]}],"BO 105 CB-2":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.3,9.7]}],"AH-1E":[{"label":"Oct 2026","order":"2026-10","nation":"Japan","airRealistic":[9.3,9.7]}],"Tzefa B":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.7]}],"SA.341F Gazelle":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.3]}],"Lahatut":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.3]}],"Wasp HAS.Mk.1":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[9.0,9.3]}],"UH-1C XM-30":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.7,9.3]}],"UH-1C":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.7,9.3]}],"A.109EOA-2":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.7,9.0]}],"Mi-24D":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[8.7,9.0]},{"label":"Oct 2026","order":"2026-10","nation":"USSR","airRealistic":[8.7,9.0]},{"label":"Oct 2026","order":"2026-10","nation":"Italy","airRealistic":[8.7,9.0]}],"Mi-24A":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.7,9.0]}],"SA 313B Alouette II":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[8.3,9.0]},{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"HKP2":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"SA 316B Alouette III":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"IAR 316B":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"Scout AH.Mk.1":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"UH-1B":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.3,9.0]}],"UH-1D":[{"label":"Oct 2026","order":"2026-10","nation":"Germany","airRealistic":[8.3,9.0]}],"Mi-4AV":[{"label":"Oct 2026","order":"2026-10","nation":null,"airRealistic":[8.0,8.3]}],"USS Aylwin":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,3.7],"navalRealistic":[4.0,3.7]}],"USS Sumner":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"USS Gearing":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"USS Frank Knox":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"USS Porter":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3],"navalRealistic":[5.0,5.3]}],"USS Sommers":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3],"navalRealistic":[5.0,5.3]}],"USS Moffet":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3],"navalRealistic":[5.0,5.3]}],"USS Davis":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3],"navalRealistic":[5.0,5.3]}],"USS Pensacola":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.3,5.7],"navalRealistic":[5.3,5.7]}],"USS Portland":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.3,5.7],"navalRealistic":[5.3,5.7]}],"USS Northampton":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.3,5.7],"navalRealistic":[5.3,5.7]}],"USS Brooklyn":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,6.3],"navalRealistic":[6.0,6.3]}],"USS New Orleans":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"USS Pittsburgh":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.3],"navalRealistic":[5.7,6.3]}],"USS Baltimore":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.3],"navalRealistic":[5.7,6.3]}],"USS Roanoke":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,6.3],"navalRealistic":[6.0,6.3]}],"USS Helena":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,6.3],"navalRealistic":[6.0,6.3]}],"USS Des Moines":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.3,6.7],"navalRealistic":[6.3,6.7]}],"USS Newport News":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.3,6.7],"navalRealistic":[6.3,6.7]}],"USS North Dakota":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,6.3],"navalRealistic":[6.0,6.3]}],"USS Texas":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"USS Nevada":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.3],"navalRealistic":[6.7,7.3]}],"USS Arizona":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.3],"navalRealistic":[6.7,7.3]}],"USS Alaska":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"USS Tennessee":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"USS Mississippi":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"USS Colorado":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"Ognevoy":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3],"navalRealistic":[4.0,4.3]}],"Ryany":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3],"navalRealistic":[4.0,4.3]}],"Soobrazitelny":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"Stroyny":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"Tashkent":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"Krasnyi Kavkaz":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"Kerch":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"navalRealistic":[5.7,5.3]}],"Novorossiysk":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"Kronshtadt":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"Arhangelsk":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"Admiral Graf Spee":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"Admiral Hipper":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"Prinz Eugen":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"SMS Kaiser":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.3,6.7],"navalRealistic":[6.3,6.7]}],"SMS Derfflinger":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.3,6.7],"navalRealistic":[6.3,6.7]}],"SMS Ersatz Yorck":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"Scharnhorst":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"HMS Calpe":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3]}],"HMS Brissenden":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3]}],"HMS Abdiel":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.7],"navalRealistic":[4.3,4.7]}],"HMS Eskimo":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMAS Nepal":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMS Kelvin":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMCS Haida":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMS Jervis":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMS Mohawk":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"HMS Enterprise":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"HMS Diana":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"HMS Daring":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"HMS Diamond":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"HMS Southampton":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"HMS Belfast":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"HMS York":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,5.3],"navalRealistic":[5.7,5.3]}],"HMS Colossus":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,6.3],"navalRealistic":[6.0,6.3]}],"HMS Marlborough":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"HMS Iron Duke":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"HMS Repulse":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"HMS Barham":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"HMS Warspite":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"HMS Rodney":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"HMS Hood":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"IJN Ayanami":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3],"navalRealistic":[4.0,4.3]}],"IJN Yugumo":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"IJN Hayanami":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.7],"navalRealistic":[4.3,4.7]}],"IJN Yudachi":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,4.3],"navalRealistic":[4.7,4.3]}],"IJN Akizuki":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"IJN Hatsuzuki":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"IJN Kako":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"IJN Furutaka":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,5.3],"navalRealistic":[5.7,5.3]}],"IJN Aoba":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,5.3],"navalRealistic":[5.7,5.3]}],"IJN Tone":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.0,5.7],"navalRealistic":[6.0,5.7]}],"IJN Hyuga":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"IJN Yamashiro":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"IJN Kongo":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"IJN Haruna":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"IJN Kirishima":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"IJN Ise":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"IJN Fuso":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.7],"navalRealistic":[7.0,7.7]}],"RN Leone":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.0],"navalRealistic":[4.3,4.0]}],"RN Tigre":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.3,4.0],"navalRealistic":[4.3,4.0]}],"RN Impetuoso":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.0,4.3],"navalRealistic":[4.0,4.3]}],"RN Bartolomeo Colleoni":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"RN Trento":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3]}],"RN Bolzano":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.0,5.3]}],"RN Raimondo Montecuccoli":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"navalRealistic":[5.7,5.3]}],"RN Eugenio di Savoia":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"navalRealistic":[5.7,5.3]}],"RN Zara":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"RN Pola":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[5.7,6.0],"navalRealistic":[5.7,6.0]}],"RN Conte di Cavour":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"RN Caio Duilio":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[7.0,7.3],"navalRealistic":[7.0,7.3]}],"Mogador":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"Dugauy Trouin":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[4.7,5.0],"navalRealistic":[4.7,5.0]}],"Bretagne":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.3,6.7],"navalRealistic":[6.3,6.7]}],"Dunkerque":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.0],"navalRealistic":[6.7,7.0]}],"Strasbourg":[{"label":"Naval decompression (undated)","order":"0000-00","nation":null,"arcade":[6.7,7.3],"navalRealistic":[6.7,7.3]}]};
+
+  const TREND_MODES = [
+    ["arcade", "Arcade"],
+    ["airRealistic", "Air Realistic"],
+    ["groundRealistic", "Ground Realistic"],
+    ["airSim", "Air Simulator"],
+    ["naval", "Naval (Aug 2026 sheet)"],
+    ["navalRealistic", "Naval Realistic"]
+  ];
+  let trendMode = "arcade";
+
+  function trendFind(text) {
+    const t = text.trim();
+    if (!t) return null;
+    const m = t.match(/^(.*) \((.*)\)$/);
+    if (m) {
+      const hit = DATA.find(d => d.name === m[1] && d.nation === m[2]);
+      if (hit) return hit;
+    }
+    return DATA.find(d => d.name.toLowerCase() === t.toLowerCase()) || null;
+  }
+
+  function setupTrend() {
+    const list = document.getElementById("trendList");
+    const seen = new Set();
+    DATA.forEach(d => {
+      const label = d.name + " (" + d.nation + ")";
+      if (seen.has(label)) return;
+      seen.add(label);
+      const o = document.createElement("option");
+      o.value = label;
+      list.appendChild(o);
+    });
+    const modeSel = document.getElementById("trendMode");
+    TREND_MODES.forEach(([code, label]) => {
+      const o = document.createElement("option");
+      o.value = code; o.textContent = label;
+      modeSel.appendChild(o);
+    });
+    modeSel.value = trendMode;
+    modeSel.onchange = () => { trendMode = modeSel.value; renderTrend(); };
+    document.getElementById("trendSearch").oninput = renderTrend;
+    document.getElementById("trendSearch").onchange = renderTrend;
+  }
+
+  function renderTrend() {
+    const info = document.getElementById("trendInfo");
+    const chart = document.getElementById("trendChart");
+    const q = document.getElementById("trendSearch").value;
+    const item = trendFind(q);
+    if (!item) {
+      info.innerHTML = q.trim() ? '<span class="gec-muted">No vehicle found with that name.</span>' : '<span class="gec-muted">Start typing a vehicle name above.</span>';
+      chart.innerHTML = "";
+      return;
+    }
+    info.innerHTML = '<div class="gec-big">' + item.name + '</div>' +
+      '<div class="gec-muted">' + item.nation + ' · ' + item.tree + ' · current BR ' + (typeof item.br === "number" ? item.br.toFixed(1) : item.br) + '</div>';
+
+    // Entries that apply to this vehicle (matching nation, or any nation if the sheet didn't say)
+    const entries = (BR_HISTORY[item.name] || [])
+      .filter(e => (!e.nation || e.nation === item.nation) && e[trendMode])
+      .sort((a, b) => a.order.localeCompare(b.order));
+
+    chart.innerHTML = "";
+    if (entries.length === 0) {
+      chart.innerHTML = '<div class="gec-muted" style="padding:20px">No BR changes recorded for this vehicle in "' +
+        (TREND_MODES.find(m => m[0] === trendMode) || [])[1] + '".</div>';
+      return;
+    }
+
+    entries.forEach(e => {
+      const [was, now] = e[trendMode];
+      const change = Math.round((now - was) * 10) / 10;
+      const cls = change < 0 ? "down" : change > 0 ? "up" : "flat";
+      const size = change === 0 ? 0 : Math.min(40 + Math.abs(change) * 60, 120);
+
+      const col = document.createElement("div");
+      col.className = "trend-col";
+      const base = document.createElement("div");
+      base.className = "trend-base";
+      col.appendChild(base);
+
+      const bar = document.createElement("div");
+      bar.className = "trend-bar " + cls;
+      if (cls !== "flat") bar.style.height = size + "px";
+      bar.textContent = now.toFixed(1);
+      col.appendChild(bar);
+
+      const label = document.createElement("div");
+      label.className = "trend-label";
+      const sign = change > 0 ? "+" : "";
+      label.textContent = e.label + " (" + sign + change.toFixed(1) + ")";
+      col.appendChild(label);
+
+      chart.appendChild(col);
+    });
+    chart.style.paddingBottom = "70px";
+  }
+
+  // ================= Extra features: notes, favorites helpers, changed filter, random, compare, bracket, shareable links =================
+  const NOTE_KEY = "wt-ledger-notes-v1";
+  let notes = {};
+  try { notes = JSON.parse(localStorage.getItem(NOTE_KEY) || "{}"); } catch (e) { notes = {}; }
+  const CHANGE_MODES = ["arcade", "airRealistic", "groundRealistic", "airSim", "naval", "navalRealistic"];
+  let currentView = "ledger";
+  let compareKeys = [];
+
+  function saveNotes() { localStorage.setItem(NOTE_KEY, JSON.stringify(notes)); }
+
+  function editNote(item) {
+    const current = notes[item._key] || "";
+    const v = window.prompt("Note for " + item.name + " (leave empty to clear):", current);
+    if (v === null) return;
+    if (v.trim() === "") delete notes[item._key];
+    else notes[item._key] = v.trim();
+    saveNotes();
+    refresh();
+  }
+
+  function sheetEntries(item) {
+    return (BR_HISTORY[item.name] || [])
+      .filter(e => !e.nation || e.nation === item.nation)
+      .sort((a, b) => a.order.localeCompare(b.order));
+  }
+
+  function hasChangeIn(item, label) {
+    return sheetEntries(item).some(e => e.label === label &&
+      CHANGE_MODES.some(m => e[m] && e[m][0] !== e[m][1]));
+  }
+
+  function latestChange(item) {
+    const es = sheetEntries(item);
+    for (let i = es.length - 1; i >= 0; i--) {
+      const m = CHANGE_MODES.find(k => es[i][k]);
+      if (m) {
+        const [w, n] = es[i][m];
+        const c = Math.round((n - w) * 10) / 10;
+        return (c > 0 ? "+" : "") + c.toFixed(1) + " (" + es[i].label + ")";
+      }
+    }
+    return "—";
+  }
+
+  function setupChangedPatch() {
+    const sel = document.getElementById("changedPatch");
+    const labels = [];
+    Object.values(BR_HISTORY).forEach(list => list.forEach(e => {
+      if (!labels.some(x => x.label === e.label)) labels.push({ label: e.label, order: e.order });
+    }));
+    labels.sort((a, b) => a.order.localeCompare(b.order));
+    labels.forEach(x => {
+      const o = document.createElement("option");
+      o.value = x.label; o.textContent = "Changed in " + x.label;
+      sel.appendChild(o);
+    });
+    sel.onchange = refresh;
+  }
+
+  function randomPick() {
+    const box = document.getElementById("randomResult");
+    const rows = visibleRows();
+    if (rows.length === 0) { box.textContent = "Nothing to pick from with these filters."; return; }
+    const d = rows[Math.floor(Math.random() * rows.length)];
+    const br = typeof d.br === "number" ? d.br.toFixed(1) : "TBD";
+    box.innerHTML = "";
+    const t = document.createElement("span");
+    t.textContent = "Random pick: " + d.name + " (" + d.nation + ", BR " + br + ")  ";
+    const again = document.createElement("button");
+    again.className = "view-btn";
+    again.textContent = "Pick again";
+    again.onclick = randomPick;
+    box.appendChild(t);
+    box.appendChild(again);
+  }
+
+  // Compare view
+  function setupCompare() {
+    const list = document.getElementById("compareList");
+    const seen = new Set();
+    DATA.forEach(d => {
+      const label = d.name + " (" + d.nation + ")";
+      if (seen.has(label)) return;
+      seen.add(label);
+      const o = document.createElement("option"); o.value = label; list.appendChild(o);
+    });
+    const add = () => {
+      const item = trendFind(document.getElementById("compareSearch").value);
+      if (!item) return;
+      if (compareKeys.length >= 4) { window.alert("You can compare up to 4 vehicles. Remove one first."); return; }
+      if (!compareKeys.includes(item._key)) compareKeys.push(item._key);
+      document.getElementById("compareSearch").value = "";
+      renderCompare();
+    };
+    document.getElementById("compareAddBtn").onclick = add;
+    document.getElementById("compareSearch").onkeydown = e => { if (e.key === "Enter") add(); };
+  }
+
+  function renderCompare() {
+    const chips = document.getElementById("compareChips");
+    const body = document.getElementById("compareBody");
+    const items = compareKeys.map(k => DATA.find(d => d._key === k)).filter(Boolean);
+    chips.innerHTML = "";
+    items.forEach(d => {
+      const c = document.createElement("span");
+      c.className = "cmp-chip";
+      c.textContent = d.name + " (" + d.nation + ")";
+      const x = document.createElement("button");
+      x.textContent = "×";
+      x.onclick = () => { compareKeys = compareKeys.filter(k => k !== d._key); renderCompare(); };
+      c.appendChild(x);
+      chips.appendChild(c);
+    });
+    body.innerHTML = "";
+    if (items.length === 0) { body.innerHTML = '<div class="gec-muted" style="padding:16px">Add vehicles above to compare them.</div>'; return; }
+
+    const rowsDef = [
+      ["Nation", d => d.nation],
+      ["Type", d => d.type],
+      ["Tree", d => d.tree],
+      ["Rank", d => d.rank],
+      ["BR", d => typeof d.br === "number" ? d.br.toFixed(1) : "TBD"],
+      ["Latest BR change", d => latestChange(d)],
+    ];
+    const table = document.createElement("table");
+    table.className = "gec-table cmp-table";
+    const thead = document.createElement("thead");
+    const hr = document.createElement("tr");
+    hr.innerHTML = "<th></th>" + items.map(d => "<th>" + d.name + "</th>").join("");
+    thead.appendChild(hr);
+    table.appendChild(thead);
+    const tb = document.createElement("tbody");
+    rowsDef.forEach(([label, fn]) => {
+      const tr = document.createElement("tr");
+      const th = document.createElement("td"); th.textContent = label; tr.appendChild(th);
+      items.forEach(d => { const td = document.createElement("td"); td.textContent = fn(d); tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb);
+    const wrap = document.createElement("div");
+    wrap.style.overflowX = "auto";
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+  }
+
+  // BR bracket view
+  function setupBracket() {
+    const fill = (id, opts, value) => {
+      const s = document.getElementById(id);
+      s.innerHTML = "";
+      opts.forEach(o => { const op = document.createElement("option"); op.value = o; op.textContent = o; s.appendChild(op); });
+      s.value = value;
+    };
+    const nations = [];
+    DATA.forEach(d => { if (!nations.includes(d.nation)) nations.push(d.nation); });
+    fill("brNation", ["All"].concat(nations), "All");
+    fill("brType", ["All", "Aircraft", "Helicopter", "Ground", "Naval"], "All");
+    fill("brTree", ["All", "Standard", "Premium", "Squadron"], "All");
+    ["brMin", "brMax", "brNation", "brType", "brTree"].forEach(id => {
+      document.getElementById(id).oninput = renderBracket;
+      document.getElementById(id).onchange = renderBracket;
+    });
+  }
+
+  function renderBracket() {
+    const body = document.getElementById("bracketBody");
+    const min = parseFloat(document.getElementById("brMin").value);
+    const max = parseFloat(document.getElementById("brMax").value);
+    const nation = document.getElementById("brNation").value;
+    const type = document.getElementById("brType").value;
+    const tree = document.getElementById("brTree").value;
+    const rows = DATA.filter(d =>
+      typeof d.br === "number" && d.br >= min && d.br <= max &&
+      (nation === "All" || d.nation === nation) &&
+      (type === "All" || d.type === type) &&
+      (tree === "All" || d.tree === tree))
+      .sort((a, b) => a.br - b.br || a.name.localeCompare(b.name));
+    body.innerHTML = "";
+    const count = document.createElement("div");
+    count.className = "gec-muted";
+    count.style.margin = "8px 0";
+    count.textContent = rows.length.toLocaleString() + " vehicles between " + min.toFixed(1) + " and " + max.toFixed(1);
+    body.appendChild(count);
+    if (rows.length === 0) return;
+    const table = document.createElement("table");
+    table.className = "gec-table";
+    table.innerHTML = "<thead><tr><th>Vehicle</th><th>Nation</th><th>Type</th><th>Tree</th><th>BR</th></tr></thead>";
+    const tb = document.createElement("tbody");
+    rows.slice(0, 500).forEach(d => {
+      const tr = document.createElement("tr");
+      [d.name, d.nation, d.type, d.tree, d.br.toFixed(1)].forEach((v, i) => {
+        const td = document.createElement("td");
+        td.textContent = v;
+        if (i === 4) td.className = "num";
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb);
+    const wrap = document.createElement("div");
+    wrap.style.overflowX = "auto";
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+    if (rows.length > 500) {
+      const more = document.createElement("div");
+      more.className = "gec-muted";
+      more.textContent = "Showing the first 500. Narrow the range to see the rest.";
+      body.appendChild(more);
+    }
+  }
+
+  // Shareable views: the URL hash holds the current view and ledger filters
+  function updateHash() {
+    const params = new URLSearchParams();
+    params.set("view", currentView);
+    if (currentView === "ledger") {
+      if (typeFilter !== "All") params.set("type", typeFilter);
+      if (treeFilter !== "All") params.set("tree", treeFilter);
+      if (searchText.trim()) params.set("q", searchText.trim());
+      if (favOnly) params.set("fav", "1");
+      const cp = document.getElementById("changedPatch");
+      if (cp && cp.value) params.set("changed", cp.value);
+    }
+    try { history.replaceState(null, "", "#" + params.toString()); } catch (e) { /* file:// may block this; not critical */ }
+  }
+
+  function applyHash() {
+    const params = new URLSearchParams(location.hash.replace(/^#/, ""));
+    if (!params.has("view")) return;
+    if (params.has("type") && TYPES.includes(params.get("type"))) typeFilter = params.get("type");
+    if (params.has("tree") && TREES.includes(params.get("tree"))) treeFilter = params.get("tree");
+    if (params.has("q")) { searchText = params.get("q"); document.getElementById("searchBox").value = searchText; }
+    if (params.has("fav")) { favOnly = true; document.getElementById("favOnlyToggle").checked = true; }
+    if (params.has("changed")) document.getElementById("changedPatch").value = params.get("changed");
+    const map = { ledger: "viewLedger", fav: "viewFav", gec: "viewGEC", patches: "viewPatches", trend: "viewTrend",
+                  ladder: "viewLadder", compare: "viewCompare", bracket: "viewBracket" };
+    const target = map[params.get("view")];
+    if (target) document.getElementById(target).click();
+  }
+
+  // Keyboard shortcuts: "/" jumps to the ledger search, Escape clears it
+  document.addEventListener("keydown", e => {
+    const typing = e.target.matches && e.target.matches("input, textarea, select, [contenteditable='true']");
+    if (e.key === "/" && !typing) {
+      e.preventDefault();
+      document.getElementById("viewLedger").click();
+      document.getElementById("searchBox").focus();
+    } else if (e.key === "Escape" && e.target.id === "searchBox") {
+      e.target.value = ""; searchText = ""; refresh(); e.target.blur();
+    }
+  });
+
+
+  // Fill BRs that the wiki doesn't list, using the latest Arcade change in the sheets
+  DATA.forEach(item => {
+    if (item.br !== "TBD") return;
+    const entries = (BR_HISTORY[item.name] || [])
+      .filter(e => (!e.nation || e.nation === item.nation) && e.arcade)
+      .sort((a, b) => a.order.localeCompare(b.order));
+    if (entries.length === 0) return;
+    const latest = entries[entries.length - 1];
+    item.br = latest.arcade[1];
+    item._brSource = latest.label;
+  });
+  refresh();
+
   setupGEC();
+  setupTrend();
+  setupLadder();
+  setupChangedPatch();
+  setupCompare();
+  setupBracket();
+  document.getElementById("randomBtn").onclick = randomPick;
+  applyHash();
 </script>
 </body>
 </html>
